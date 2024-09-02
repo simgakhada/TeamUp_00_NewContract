@@ -34,66 +34,57 @@
         WHERE EMAIL LIKE ?
     </entry>
 
-    <entry key="sort0">
+    <entry key="SORT_BASIC">
         SELECT
         *
         FROM CONTRACT
-</entry>
+    </entry>
 
+    <entry key="sortByNameAsc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY NAME ASC
+    </entry>
 
-   <entry key="sort1">
-
-       SELECT
-       *
-       FROM CONTRACT
-       ORDER BY NAME ASC
-
-   </entry>
-
-
-    <entry key="sort2">
+    <entry key="sortByNameDesc">
         SELECT
         *
         FROM CONTRACT
         ORDER BY NAME DESC
+    </entry>
 
-</entry>
 
-
-    <entry key="sort3">
+    <entry key="sortByPhoneAsc">
         SELECT
         *
         FROM CONTRACT
         ORDER BY PHONE ASC
 
-</entry>
+    </entry>
 
 
-    <entry key="sort4">
+    <entry key="sortByPhoneDesc">
         SELECT
         *
         FROM CONTRACT
         ORDER BY PHONE DESC
 
-</entry>
+    </entry>
 
 
-    <entry key="sort5">
+    <entry key="sortByBirthAsc">
         SELECT
         *
         FROM CONTRACT
         ORDER BY BIRTH ASC
 
-</entry>
+    </entry>
 
-    <entry key="sort6">
+    <entry key="sortByBirthDesc">
         SELECT
         *
         FROM CONTRACT
         ORDER BY BIRTH DESC
-
-</entry>
-
-
-
+    </entry>
 </properties>

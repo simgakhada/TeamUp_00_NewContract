@@ -41,7 +41,6 @@ public class SettingsController
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
                         System.out.println();
-                        break;
                     }
                     else
                     {
@@ -58,22 +57,20 @@ public class SettingsController
                     if (choice3 == 0 || choice3 == 1 || choice3 == 2 || choice3 == 3 || choice3 == 4 || choice3 == 5 || choice3 == 6 || choice3 == 7 || choice3 == 8)
                     {
                         dao.saveSortCondition(choice3);
-                        break;
                     }
                     else if(choice3 == 9)
                     {
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
                         System.out.println();
-                        break;
                     }
                     else
                     {
                         System.out.println();
                         System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
                         System.out.println();
-                        break;
                     }
+                    break;
 
                 case 9:
                     System.out.println();

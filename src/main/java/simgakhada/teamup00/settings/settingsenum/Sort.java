@@ -2,7 +2,7 @@ package simgakhada.teamup00.settings.settingsenum;
 
 public enum Sort
 {
-    NONE("없음", 0),
+    SORT_NONE("없음", 0),
     NAME_ASC("이름 (오름차순)", 1),
     NAMED_ESC("이름 (내림차순)", 2),
     PHONE_ASC("전화번호 (오름차순)", 3),

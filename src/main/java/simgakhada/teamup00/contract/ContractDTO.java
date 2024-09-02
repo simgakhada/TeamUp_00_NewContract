@@ -34,40 +34,45 @@ public class ContractDTO
         return name;
     }
 
-    public void setName(String name) {
+    public ContractDTO setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public ContractDTO setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public ContractDTO setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public ContractDTO setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public ContractDTO setBirthday(String birthday) {
         this.birthday = birthday;
+        return this;
     }
 
     @Override

@@ -2,7 +2,7 @@ package simgakhada.teamup00.settings.settingsenum;
 
 public enum Search
 {
-    NONE("없음", 0),
+    SEARCH_NONE("없음", 0),
     NAME("이름", 1),
     PHONE_WHOLE("전화번호 (전체)", 2),
     PHONE_4DIGITS("전화번호 (4자리)", 3),

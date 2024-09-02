@@ -1,12 +1,20 @@
 package simgakhada.teamup00.contract;
 
+import simgakhada.teamup00.contract.contractenum.ContractSortSet;
+import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.settingsenum.Search;
+import simgakhada.teamup00.settings.settingsenum.Sort;
+
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
 
 import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
+import static simgakhada.teamup00.template.JDBCTemplate.getConnection2;
 
 /**
  * ContractDTO
@@ -21,6 +29,8 @@ public class ContractDAO
 {
     private Properties prop = new Properties();
     ContractValidation validation = new ContractValidation();
+    ContractScripts c =  new ContractScripts();
+    SettingsDAO settingsDAO = new SettingsDAO();
 
     public ContractDAO(String url)
     {
@@ -44,6 +54,7 @@ public class ContractDAO
             ps = con.prepareStatement(query);
             System.out.print("이름을 입력해주세요.: ");
             String name = sc.nextLine();
+            dto.setName(name);
             System.out.print("전화번호를 입력해주세요. (입력 예시: 01012345678): ");
             String phone = sc.nextLine();
             System.out.print("이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
@@ -227,52 +238,38 @@ public class ContractDAO
         }
     }
 
-    public void lookUpSort(){
-        Scanner sc = new Scanner(System.in);
+    /*
+    public void lookUpWithSettings(int setValue)
+    {
+        System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회합니다.");
+        settingsDAO.printSavedConditionSort();
+        setValue = settingsDAO.loadSortCondition();
+        lookUp(getConnection2(), setValue);
+    }
 
-        while (true) {
-            int choice = sc.nextInt();
-            if(choice >=0 && choice <=6) {
-                lookUp(getConnection(), choice);
-                break;
-            }
-            else if(choice <=9)
-            {
-                return;
-            }
-            else
-                System.out.println("error");
-        }
-}
+    public void lookUpWithoutSettings()
+    {
 
+    }
+    */
 
     public void lookUp(Connection con, int num)
     {
-
-        Statement stmt = null;
-
-        String query = prop.getProperty("lookUp");
-        ResultSet rs = null;
+        ContractSortSet sortSet = ContractSortSet.values()[num];
+        Statement stmt;
+        String query = sortSet.getChoice();
+        ResultSet rs;
 
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
-
-
-            while(rs.next()){
+            rs = stmt.executeQuery(prop.getProperty(query));
+            while(rs.next())
+            {
                 System.out.println(rs.getString("NAME") + " " + rs.getString("PHONE")+ " " + rs.getString("EMAIL")+ " " + rs.getString("ADDRESS")+ " " + rs.getString("BIRTH"));
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
-
-
-
-
-
-
+        System.out.println();
     }
 }

@@ -2,11 +2,11 @@ package simgakhada.teamup00.contract;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
+
+import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
 
 /**
  * ContractDTO
@@ -228,8 +228,52 @@ public class ContractDAO
         }
     }
 
-    public void lookUp(Connection con)
+    public void lookUpSort(){
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            int choice = sc.nextInt();
+            if(choice >=0 && choice <=6) {
+                lookUp(getConnection(), choice);
+                break;
+            }
+            else if(choice <=9)
+            {
+                return;
+            }
+            else
+                System.out.println("error");
+        }
+}
+
+
+    public void lookUp(Connection con, int num)
     {
+
+        Statement stmt = null;
+
+        String query = prop.getProperty("lookUp");
+        ResultSet rs = null;
+
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            while(rs.next()){
+                System.out.println(rs.getString("NAME") + " " + rs.getString("PHONE")+ " " + rs.getString("EMAIL")+ " " + rs.getString("ADDRESS")+ " " + rs.getString("BIRTH"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+
+
+
 
     }
 }

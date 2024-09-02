@@ -138,6 +138,7 @@
         SELECT
         *
         FROM CONTRACT
+        WHERE SUBSTRING(PHONE, -4) = ?
     </entry>
 
     <entry key="searchByEmail">

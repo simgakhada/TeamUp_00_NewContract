@@ -2,6 +2,7 @@ package simgakhada.teamup00.search;
 
 import simgakhada.teamup00.search.searchenum.SearchSet;
 import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.settingsenum.Search;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,23 +30,24 @@ public class SearchService
         Properties prop = new Properties();
         SearchSet searchSet = SearchSet.values()[num];
         PreparedStatement ps;
-        SettingsDAO settingsDAO = new SettingsDAO();
         ResultSet rs;
         String query = searchSet.getQuery();
+        Search search;
 
         try {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/menu-query.xml"));
             ps = con.prepareStatement(prop.getProperty(query));
             ps.setString(1, input);
             rs = ps.executeQuery();
-            if(rs.next())
+            if(rs != null)
             {
                 while(rs.next())
                 {
                     System.out.println(rs.getString("NAME") + " " + rs.getString("PHONE")+ " " + rs.getString("EMAIL")+ " " + rs.getString("ADDRESS")+ " " + rs.getString("BIRTH"));
                 }
+                search = Search.values()[num];
                 System.out.println("현재 저장된 기준으로 검색하여 연락처를 출력하였습니다.");
-                settingsDAO.printSavedConditionSearch();
+                System.out.println("검색 기준: " + search.getChoice());
             }
             else
             {

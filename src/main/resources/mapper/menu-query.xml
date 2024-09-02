@@ -33,4 +33,67 @@
         FROM CONTRACT
         WHERE EMAIL LIKE ?
     </entry>
+
+    <entry key="sort0">
+        SELECT
+        *
+        FROM CONTRACT
+</entry>
+
+
+   <entry key="sort1">
+
+       SELECT
+       *
+       FROM CONTRACT
+       ORDER BY NAME ASC
+
+   </entry>
+
+
+    <entry key="sort2">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY NAME DESC
+
+</entry>
+
+
+    <entry key="sort3">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY PHONE ASC
+
+</entry>
+
+
+    <entry key="sort4">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY PHONE DESC
+
+</entry>
+
+
+    <entry key="sort5">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH ASC
+
+</entry>
+
+    <entry key="sort6">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+
+</entry>
+
+
+
 </properties>

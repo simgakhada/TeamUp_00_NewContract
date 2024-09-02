@@ -115,7 +115,6 @@ public class ContractController
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
                         System.out.println();
-
                     }
                     else
                     {

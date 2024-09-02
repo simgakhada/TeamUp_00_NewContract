@@ -3,8 +3,8 @@ package simgakhada.teamup00.contract.contractenum;
 public enum ContractSortSet
 {
     NONE("SORT_BASIC", 0),
-    choice_ASC("sortByNameAsc", 1),
-    choiceD_ESC("sortByNameDesc", 2),
+    NAME_ASC("sortByNameAsc", 1),
+    NAME_DESC("sortByNameDesc", 2),
     PHONE_ASC("sortByPhoneAsc", 3),
     PHONE_DESC("sortByPhoneDesc", 4),
     BIRTH_ASC("sortByBirthAsc", 5),

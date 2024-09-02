@@ -24,7 +24,4 @@ public enum ContractSortSet
         return choice;
     }
 
-    public int getValue() {
-        return value;
-    }
 }

@@ -3,10 +3,7 @@ package simgakhada.teamup00.settings;
 import simgakhada.teamup00.settings.settingsenum.Search;
 import simgakhada.teamup00.settings.settingsenum.Sort;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -15,8 +12,6 @@ import java.util.Properties;
  * 설정에는 검색 조건, 정렬 방식이 있다.
  *
  * 기존 대비 변경점
- * properties를 통해 설정의 값을 관리하기 때문에
- * 맨 아래의 두 메소드는 불필요하다 판단하여 전체 주석 처리하였습니다.
  * 현재 설정의 상태를 보여주는 기능은 printSavedCondition 메소드로 이관하고,
  * 각 save~~ 메소드에서도 저장 후 결과를 출력하도록 변경하였습니다.
  * 단순 while, switch... case문은 SettingsController 클래스를 별도로 선언하여
@@ -30,6 +25,7 @@ public class SettingsDAO
     FileOutputStream fos;
     Search search;
     Sort sort;
+    int condition = 0;
 
     public void printSavedCondition()
     {
@@ -48,14 +44,36 @@ public class SettingsDAO
             else
             {
                 System.out.println("현재 저장된 설정은 다음과 같습니다.");
-                System.out.print("검색 기준: ");
-                search = Search.values()[Integer.parseInt(props.getProperty("search"))];
-                System.out.println(search.getChoice());
-                System.out.print("정렬 기준: ");
-                sort = Sort.values()[Integer.parseInt(props.getProperty("sort"))];
-                System.out.println(sort.getChoice());
+                printSavedConditionSearch();
+                printSavedConditionSort();
                 System.out.println();
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void printSavedConditionSearch()
+    {
+        try {
+            fis = new FileInputStream(path);
+            props.load(fis);
+            fis.close();
+            System.out.print("검색 기준: ");
+            search = Search.values()[Integer.parseInt(props.getProperty("search"))];
+            System.out.println(search.getChoice());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void printSavedConditionSort()
+    {
+        try {
+            fis = new FileInputStream(path);
+            props.load(fis);
+            fis.close();
+            System.out.print("정렬 기준: ");
+            sort = Sort.values()[Integer.parseInt(props.getProperty("sort"))];
+            System.out.println(sort.getChoice());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -119,7 +137,6 @@ public class SettingsDAO
         }
     }
 
-    /*
     public int loadSearchCondition()
     {
         try {
@@ -145,5 +162,4 @@ public class SettingsDAO
         }
         return condition;
     }
-    */
 }

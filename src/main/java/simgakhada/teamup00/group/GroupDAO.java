@@ -1,5 +1,14 @@
 package simgakhada.teamup00.group;
 
+import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+
 /**
  * GroupDAO
  * 그룹의 추가, 수정, 삭제를 구현하는 메소드입니다.
@@ -7,19 +16,25 @@ package simgakhada.teamup00.group;
  */
 public class GroupDAO
 {
-    public void add()
-    {
+    private Properties prop = new Properties();
+
+    public GroupDAO(String url) {
+        try {
+            prop.loadFromXML(new FileInputStream(url));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void add(String groupName) { // 그룹 추가
 
     }
 
-    public void delete()
-    {
+    public void delete() { // 그룹 삭체
 
     }
 
-    public void update()
-    {
-
+    public void update() { // 그룹
     }
 
     public void loopUp()

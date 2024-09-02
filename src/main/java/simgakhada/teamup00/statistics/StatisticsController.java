@@ -12,7 +12,7 @@ public class StatisticsController
         {
             s.statisticsScriptsController();
             int choice = sc.nextInt();
-            sc.close();
+            sc.nextLine();
             switch (choice)
             {
                 case 1:

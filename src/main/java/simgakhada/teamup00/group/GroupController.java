@@ -22,7 +22,7 @@ public class GroupController
         {
             g.groupScriptsController();
             int choice = sc.nextInt();
-            sc.close();
+            sc.nextLine();
             switch(choice)
             {
                 case 1:

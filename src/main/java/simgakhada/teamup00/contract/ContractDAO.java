@@ -1,20 +1,11 @@
 package simgakhada.teamup00.contract;
 
 import simgakhada.teamup00.contract.contractenum.ContractSortSet;
-import simgakhada.teamup00.settings.SettingsDAO;
-import simgakhada.teamup00.settings.settingsenum.Search;
-import simgakhada.teamup00.settings.settingsenum.Sort;
-
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
-
-import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
-import static simgakhada.teamup00.template.JDBCTemplate.getConnection2;
 
 /**
  * ContractDTO
@@ -29,7 +20,6 @@ public class ContractDAO
 {
     private Properties prop = new Properties();
     ContractValidation validation = new ContractValidation();
-    ContractScripts c =  new ContractScripts();
 
     public ContractDAO(String url)
     {
@@ -146,7 +136,7 @@ public class ContractDAO
     public void update(Connection con)
     {
         Scanner sc = new Scanner(System.in);
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         int result = 0;
         String query = prop.getProperty("updateInfo");
 

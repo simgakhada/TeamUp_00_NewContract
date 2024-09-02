@@ -42,7 +42,6 @@ public class ContractController
                     break;
 
                 case 4 :
-                    dao.lookUp(getConnection2());
                     break;
 
                 case 9 :

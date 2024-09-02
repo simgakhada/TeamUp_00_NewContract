@@ -3,6 +3,9 @@ package simgakhada.teamup00.group;
 import simgakhada.teamup00.run.MainScripts;
 
 import java.util.Scanner;
+
+
+        ;
 /**
  * GroupController
  * 그룹 관리하는 메뉴를 출력하는 클래스입니다.
@@ -12,6 +15,8 @@ import java.util.Scanner;
  */
 public class GroupController
 {
+    private GroupDAO dao = new GroupDAO();
+
     public void run()
     {
         Scanner sc = new Scanner(System.in);

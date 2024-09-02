@@ -44,6 +44,7 @@ public class ContractDAO
             ps = con.prepareStatement(query);
             System.out.print("이름을 입력해주세요.: ");
             String name = sc.nextLine();
+            dto.setName(name);
             System.out.print("전화번호를 입력해주세요. (입력 예시: 01012345678): ");
             String phone = sc.nextLine();
             System.out.print("이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");

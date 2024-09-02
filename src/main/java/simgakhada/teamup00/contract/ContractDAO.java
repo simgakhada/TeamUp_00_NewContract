@@ -231,7 +231,7 @@ public class ContractDAO
     {
         ContractSortSet sortSet = ContractSortSet.values()[num];
         Statement stmt;
-        String query = sortSet.getChoice();
+        String query = sortSet.getQuery();
         ResultSet rs;
 
         try {

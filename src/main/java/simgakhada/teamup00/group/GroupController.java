@@ -18,6 +18,7 @@ public class GroupController
         GroupDAO dao = new GroupDAO();
         GroupScripts g = new GroupScripts();
         MainScripts m = new MainScripts();
+        GroupSearch gs = new GroupSearch();
         while(true)
         {
             g.groupScriptsController();
@@ -26,19 +27,9 @@ public class GroupController
             switch(choice)
             {
                 case 1:
-                    dao.add();
                     break;
 
                 case 2:
-                    dao.delete();
-                    break;
-
-                case 3:
-                    dao.update();
-                    break;
-
-                case 4:
-                    dao.loopUp();
                     break;
 
                 case 9:

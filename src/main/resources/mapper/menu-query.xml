@@ -54,7 +54,6 @@
         ORDER BY NAME DESC
     </entry>
 
-
     <entry key="sortByPhoneAsc">
         SELECT
         *
@@ -63,7 +62,6 @@
 
     </entry>
 
-
     <entry key="sortByPhoneDesc">
         SELECT
         *
@@ -71,7 +69,6 @@
         ORDER BY PHONE DESC
 
     </entry>
-
 
     <entry key="sortByBirthAsc">
         SELECT
@@ -86,5 +83,74 @@
         *
         FROM CONTRACT
         ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="sortByBirthDesc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="sortByBirthDesc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="sortByBirthDesc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="sortByBirthDesc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="sortByBirthDesc">
+        SELECT
+        *
+        FROM CONTRACT
+        ORDER BY BIRTH DESC
+    </entry>
+
+    <entry key="searchByName">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE NAME = ?
+    </entry>
+
+    <entry key="searchByPhone">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE PHONE = ?
+    </entry>
+
+    <entry key="searchByPhone4Digits">
+        SELECT
+        *
+        FROM CONTRACT
+    </entry>
+
+    <entry key="searchByEmail">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE EMAIL = ?
+    </entry>
+
+    <entry key="searchByAddress">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE ADDRESS = ?
     </entry>
 </properties>

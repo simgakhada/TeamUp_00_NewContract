@@ -2,6 +2,7 @@ package simgakhada.teamup00.run;
 
 import simgakhada.teamup00.contract.ContractController;
 import simgakhada.teamup00.group.GroupController;
+import simgakhada.teamup00.search.SearchController;
 import simgakhada.teamup00.settings.SettingsController;
 import simgakhada.teamup00.statistics.StatisticsController;
 
@@ -21,9 +22,9 @@ public class MainController
         MainScripts m = new MainScripts();
         ContractController c = new ContractController();
         GroupController g = new GroupController();
-        SettingsController s = new SettingsController();
+        SearchController s = new SearchController();
+        SettingsController se = new SettingsController();
         StatisticsController st = new StatisticsController();
-
         while (true)
         {
             m.mainScriptController();
@@ -44,7 +45,7 @@ public class MainController
 
                 case 3:
                     System.out.println();
-                    // *Search
+                    s.run();
                     break;
 
                 case 4:
@@ -54,7 +55,7 @@ public class MainController
 
                 case 9:
                     System.out.println();
-                    s.run();
+                    se.run();
                     break;
 
                 case 0:

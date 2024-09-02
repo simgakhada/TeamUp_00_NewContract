@@ -12,16 +12,16 @@ public enum ContractSortSet
     GROUP_ASC("sortByGroupAsc", 7),
     GROUP_DESC("sortByGroupDesc", 8);
 
-    private final String choice;
+    private final String query;
     private final int value;
 
-    ContractSortSet(String choice, int value) {
-        this.choice = choice;
+    ContractSortSet(String query, int value) {
+        this.query = query;
         this.value = value;
     }
 
-    public String getChoice() {
-        return choice;
+    public String getQuery() {
+        return query;
     }
 
 }

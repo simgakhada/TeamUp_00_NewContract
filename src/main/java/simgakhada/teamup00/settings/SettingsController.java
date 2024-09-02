@@ -44,9 +44,7 @@ public class SettingsController
                     }
                     else
                     {
-                        System.out.println();
-                        System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
-                        System.out.println();
+                        m.defaultMessage();
                     }
                     break;
 
@@ -66,9 +64,7 @@ public class SettingsController
                     }
                     else
                     {
-                        System.out.println();
-                        System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
-                        System.out.println();
+                        m.defaultMessage();
                     }
                     break;
 

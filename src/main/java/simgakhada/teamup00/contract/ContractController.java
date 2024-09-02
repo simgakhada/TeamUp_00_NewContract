@@ -67,6 +67,7 @@ public class ContractController
     {
         Scanner sc = new Scanner(System.in);
         SettingsDAO settingsDAO = new SettingsDAO();
+        MainScripts m = new MainScripts();
         Sort sort;
 
         while (true)
@@ -79,9 +80,17 @@ public class ContractController
             {
                 case 1:
                     int setting = settingsDAO.loadSortCondition();
-                    dao.lookUp(getConnection2(), setting);
-                    System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회하였습니다.");
-                    settingsDAO.printSavedConditionSort();
+                    if(setting == 0)
+                    {
+                        System.out.println("저장된 설정이 없습니다.");
+                        System.out.println("이전으로 돌아갑니다.");
+                    }
+                    else
+                    {
+                        dao.lookUp(getConnection2(), setting);
+                        System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회하였습니다.");
+                        settingsDAO.printSavedConditionSort();
+                    }
                     System.out.println();
                     return;
 
@@ -113,9 +122,7 @@ public class ContractController
                     }
                     else
                     {
-                        System.out.println();
-                        System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
-                        System.out.println();
+                        m.defaultMessage();
                     }
                     return;
 
@@ -126,9 +133,7 @@ public class ContractController
                     return;
 
                 default:
-                    System.out.println();
-                    System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
-                    System.out.println();
+                    m.defaultMessage();
                     return;
             }
         }

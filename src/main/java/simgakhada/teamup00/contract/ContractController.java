@@ -47,6 +47,7 @@ public class ContractController
                     break;
 
                 case 4 :
+                    System.out.println();
                     runCase4();
                     break;
 
@@ -71,18 +72,11 @@ public class ContractController
     {
         Scanner sc = new Scanner(System.in);
         SettingsDAO settingsDAO = new SettingsDAO();
-        File path = new File("src/main/resources/config/settings.properties");
-        Properties props = new Properties();
-        FileInputStream fis;
-        FileOutputStream fos;
         Sort sort;
 
         while (true)
         {
-            System.out.println("[연락처 조회] 연락처를 특정 기준에 따라 정렬하거나, 정렬하지 않고 출력합니다.");
-            System.out.println("1. 현재 저장된 기준에 따라 출력하기");
-            System.out.println("2. 정렬 기준 직접 선택하기");
-            System.out.print("번호 입력: ");
+            c.contractScriptCase4();
             int choice = sc.nextInt();
             sc.nextLine();
 
@@ -94,7 +88,8 @@ public class ContractController
                     System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회하였습니다.");
                     settingsDAO.printSavedConditionSort();
                     System.out.println();
-                    break;
+                    return;
+
                 case 2:
                     c.contractScriptSort();
                     int choice2 = sc.nextInt();
@@ -106,6 +101,14 @@ public class ContractController
                         System.out.print("정렬 기준: ");
                         System.out.println(sort.getChoice());
                         System.out.println();
+                        System.out.println("해당 설정을 저장하시겠습니까?");
+                        System.out.print("답변 입력 (Y / N): ");
+                        char YN = sc.next().charAt(0);
+                        sc.nextLine();
+                        if (YN == 'Y' || YN == 'y')
+                            settingsDAO.saveSortCondition(choice2);
+                        else if(YN == 'N' || YN == 'n')
+                            System.out.println("설정을 저장하지 않고 이전으로 돌아갑니다.");
                     }
                     else if(choice2 == 9)
                     {
@@ -119,7 +122,19 @@ public class ContractController
                         System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
                         System.out.println();
                     }
-                    break;
+                    return;
+
+                case 9:
+                    System.out.println();
+                    System.out.println("이전으로 돌아갑니다.");
+                    System.out.println();
+                    return;
+
+                default:
+                    System.out.println();
+                    System.out.println("올바른 번호 입력에 실패하여 이전으로 돌아갑니다.");
+                    System.out.println();
+                    return;
             }
         }
     }

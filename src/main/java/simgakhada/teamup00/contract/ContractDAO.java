@@ -30,7 +30,6 @@ public class ContractDAO
     private Properties prop = new Properties();
     ContractValidation validation = new ContractValidation();
     ContractScripts c =  new ContractScripts();
-    SettingsDAO settingsDAO = new SettingsDAO();
 
     public ContractDAO(String url)
     {
@@ -237,21 +236,6 @@ public class ContractDAO
             throw new RuntimeException(e);
         }
     }
-
-    /*
-    public void lookUpWithSettings(int setValue)
-    {
-        System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회합니다.");
-        settingsDAO.printSavedConditionSort();
-        setValue = settingsDAO.loadSortCondition();
-        lookUp(getConnection2(), setValue);
-    }
-
-    public void lookUpWithoutSettings()
-    {
-
-    }
-    */
 
     public void lookUp(Connection con, int num)
     {

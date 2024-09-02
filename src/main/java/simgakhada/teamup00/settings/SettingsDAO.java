@@ -52,6 +52,7 @@ public class SettingsDAO
             throw new RuntimeException(e);
         }
     }
+
     public void printSavedConditionSearch()
     {
         try {
@@ -65,6 +66,7 @@ public class SettingsDAO
             throw new RuntimeException(e);
         }
     }
+
     public void printSavedConditionSort()
     {
         try {

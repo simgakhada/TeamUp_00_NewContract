@@ -7,7 +7,7 @@ public class SearchScripts
     SettingsDAO settingsDAO = new SettingsDAO();
     public void searchScriptsController()
     {
-        System.out.println("[연락처 검색] 입력한 내용에 일치하는 연락처를 찾아 출력합니다.");
+        System.out.println("[연락처 검색] 입력한 내용과 일치하는 연락처를 찾아 출력합니다.");
         System.out.print("현재 저장된 ");
         settingsDAO.printSavedConditionSearch();
         System.out.println("1. 현재 저장된 기준에 따라 검색하기");

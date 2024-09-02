@@ -39,20 +39,25 @@ public class SearchService
             ps = con.prepareStatement(prop.getProperty(query));
             ps.setString(1, input);
             rs = ps.executeQuery();
-            if(rs != null)
+            if(!rs.next())
             {
+                System.out.println("검색 결과가 없습니다.");
+                System.out.println("다시 시도해주세요.");
+            }
+            else
+            {
+                System.out.println("검색 결과");
                 while(rs.next())
                 {
-                    System.out.println(rs.getString("NAME") + " " + rs.getString("PHONE")+ " " + rs.getString("EMAIL")+ " " + rs.getString("ADDRESS")+ " " + rs.getString("BIRTH"));
+                    System.out.println("이름: " + rs.getString("NAME")
+                            + " 전화번호: " + rs.getString("PHONE")
+                            + " 이메일: " + rs.getString("EMAIL")
+                            + " 주소: " + rs.getString("ADDRESS")
+                            + " 생년월일: " + rs.getString("BIRTH"));
                 }
                 search = Search.values()[num];
                 System.out.println("현재 저장된 기준으로 검색하여 연락처를 출력하였습니다.");
                 System.out.println("검색 기준: " + search.getChoice());
-            }
-            else
-            {
-                System.out.println("검색 결과가 없습니다.");
-                System.out.println("다시 시도해주세요.");
             }
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);

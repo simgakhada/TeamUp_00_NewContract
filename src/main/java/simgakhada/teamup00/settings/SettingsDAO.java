@@ -1,10 +1,12 @@
 package simgakhada.teamup00.settings;
 
+import simgakhada.teamup00.run.MainScripts;
 import simgakhada.teamup00.settings.settingsenum.Search;
 import simgakhada.teamup00.settings.settingsenum.Sort;
 
 import java.io.*;
 import java.util.Properties;
+import java.util.Scanner;
 
 /**
  * "설정"
@@ -20,7 +22,7 @@ import java.util.Properties;
 public class SettingsDAO
 {
     File path = new File("src/main/resources/config/settings.properties");
-    Properties props = new Properties();
+    Properties prop = new Properties();
     FileInputStream fis;
     FileOutputStream fos;
     Search search;
@@ -31,11 +33,11 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
+            prop.load(fis);
             fis.close();
             System.out.println();
             System.out.println("현재 저장된 검색 및 정렬 기준에 대한 설정을 확인합니다.");
-            if(props.getProperty("search").equals("0") && props.getProperty("sort").equals("0"))
+            if(prop.getProperty("search").equals("0") && prop.getProperty("sort").equals("0"))
             {
                 System.out.println("현재 저장된 설정이 존재하지 않습니다.");
                 System.out.println("이전으로 이동합니다.");
@@ -57,10 +59,10 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
+            prop.load(fis);
             fis.close();
             System.out.print("검색 기준: ");
-            search = Search.values()[Integer.parseInt(props.getProperty("search"))];
+            search = Search.values()[Integer.parseInt(prop.getProperty("search"))];
             System.out.println(search.getChoice());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -71,10 +73,10 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
+            prop.load(fis);
             fis.close();
             System.out.print("정렬 기준: ");
-            sort = Sort.values()[Integer.parseInt(props.getProperty("sort"))];
+            sort = Sort.values()[Integer.parseInt(prop.getProperty("sort"))];
             System.out.println(sort.getChoice());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -85,11 +87,11 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
+            prop.load(fis);
             fis.close();
             fos = new FileOutputStream(path);
-            props.setProperty("search", String.valueOf(num));
-            props.store(fos,"Settings about search and sort.");
+            prop.setProperty("search", String.valueOf(num));
+            prop.store(fos,"Last changes: search");
             fos.close();
             if(num == 0)
             {
@@ -114,11 +116,11 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
+            prop.load(fis);
             fis.close();
             fos = new FileOutputStream(path);
-            props.setProperty("sort", String.valueOf(num));
-            props.store(fos, "Settings about search and sort.");
+            prop.setProperty("sort", String.valueOf(num));
+            prop.store(fos, "Last changes: sort");
             fos.close();
             if(num == 0)
             {
@@ -143,9 +145,10 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
-            String value = props.getProperty("search");
+            prop.load(fis);
+            String value = prop.getProperty("search");
             condition = Integer.parseInt(value);
+            fis.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -156,12 +159,205 @@ public class SettingsDAO
     {
         try {
             fis = new FileInputStream(path);
-            props.load(fis);
-            String value = props.getProperty("sort");
+            prop.load(fis);
+            String value = prop.getProperty("sort");
             condition = Integer.parseInt(value);
+            fis.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return condition;
+    }
+
+    public void autoSaveOnOff()
+    {
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            fos = new FileOutputStream(path);
+            if(prop.getProperty("autoSave").equals("false"))
+            {
+                prop.setProperty("autoSave", "true");
+                prop.store(fos, "Last change: autoSave = true");
+                fos.close();
+                System.out.println();
+                System.out.println("자동 저장 기능을 켭니다.");
+                System.out.println();
+            }
+            if(prop.getProperty("autoSave").equals("true"))
+            {
+                prop.setProperty("autoSave", "false");
+                prop.store(fos, "Last change: autoSave = false");
+                fos.close();
+                System.out.println();
+                System.out.println("자동 저장 기능을 끕니다.");
+                System.out.println();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void lockUnlock()
+    {
+        Scanner sc = new Scanner(System.in);
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            System.out.println();
+            if(prop.getProperty("locked").equals("true"))
+            {
+                System.out.println("현재 잠금이 설정되어 있습니다.");
+                System.out.println("잠금을 해제하기 위해서는 비밀번호가 필요합니다.");
+                System.out.print("비밀번호 입력: ");
+                String password = sc.nextLine();
+                if(password.equals(prop.getProperty("password")))
+                {
+                    System.out.println("잠금이 해제되었습니다.");
+                    fos = new FileOutputStream(path);
+                    prop.setProperty("locked", "false");
+                    prop.store(fos, "Last Changes: locked = false");
+                    fos.close();
+                }
+                else
+                {
+                    System.out.println("비밀번호가 맞지 않습니다.");
+                    System.out.println("이전으로 돌아갑니다.");
+                }
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("현재 잠금이 설정되어 있지 않습니다.");
+                System.out.println("잠금을 설정하시겠습니까?");
+                System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
+                char YN = sc.next().charAt(0);
+                sc.nextLine();
+                if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                {
+                    System.out.println("잠금이 설정되었습니다.");
+                    fos = new FileOutputStream(path);
+                    prop.setProperty("locked", "true");
+                    prop.store(fos, "Last Changes: locked = true");
+                    fos.close();
+                }
+                else
+                    System.out.println("이전으로 돌아갑니다.");
+                System.out.println();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void changePassword()
+    {
+        Scanner sc = new Scanner(System.in);
+        MainScripts m = new MainScripts();
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            System.out.println();
+            if(!prop.getProperty("password").isEmpty())
+            {
+                System.out.println("비밀번호를 입력해주세요.");
+                System.out.print("비밀번호: ");
+                String password = sc.nextLine();
+                if(password.equals(prop.getProperty("password")))
+                {
+                    System.out.println("1. 비밀번호를 변경합니다.");
+                    System.out.println("2. 비밀번호를 삭제합니다.");
+                    System.out.println("9. 뒤로가기");
+                    System.out.print("번호 입력: ");
+                    int choice = sc.nextInt();
+                    sc.nextLine();
+                    if(choice == 1)
+                    {
+                        System.out.println("새로운 비밀번호를 입력해주세요.");
+                        System.out.print("비밀번호: ");
+                        String newPassword = sc.nextLine();
+                        System.out.println("다시 한 번 입력해주세요.");
+                        System.out.print("비밀번호 확인: ");
+                        String newPassword2 = sc.nextLine();
+                        if(newPassword.equals(prop.getProperty("password")))
+                        {
+                            System.out.println("기존과 같은 비밀번호로는 변경할 수 없습니다.");
+                        }
+                        else if(newPassword.equals(newPassword2))
+                        {
+                            System.out.println("비밀번호가 변경되었습니다.");
+                            fos = new FileOutputStream(path);
+                            prop.setProperty("password", newPassword);
+                            prop.store(fos, "Last Changes: new password");
+                            fos.close();
+                        }
+                        else
+                        {
+                            System.out.println("두 비밀번호가 일치하지 않아 변경에 실패하였습니다.");
+                        }
+                        System.out.println();
+                    }
+                    else if(choice == 2)
+                    {
+                        System.out.println("정말 비밀번호를 삭제하시겠습니까?");
+                        System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
+                        char YN = sc.next().charAt(0);
+                        sc.nextLine();
+                        if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                        {
+                            System.out.println("비밀번호가 삭제되었습니다.");
+                            fos = new FileOutputStream(path);
+                            prop.setProperty("password", "");
+                            prop.setProperty("locked", "false");
+                            prop.store(fos, "Last Changes: password = null");
+                            fos.close();
+                        }
+                        else
+                            System.out.println("이전으로 돌아갑니다.");
+                    }
+                    else if(choice == 9)
+                    {
+                        System.out.println("이전으로 돌아갑니다.");
+                    }
+                    else
+                    {
+                        m.defaultMessage();
+                    }
+                }
+                else
+                {
+                    System.out.println("비밀번호가 맞지 않습니다.");
+                }
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("비밀번호를 설정합니다.");
+                System.out.println("새로운 비밀번호를 입력해주세요.");
+                System.out.print("비밀번호: ");
+                String newPassword = sc.nextLine();
+                System.out.println("다시 한 번 입력해주세요.");
+                System.out.print("비밀번호 확인: ");
+                String newPassword2 = sc.nextLine();
+                if(newPassword.equals(newPassword2))
+                {
+                    System.out.println("비밀번호가 생성되었습니다.");
+                    fos = new FileOutputStream(path);
+                    prop.setProperty("password", newPassword);
+                    prop.store(fos, "Last Changes: new password");
+                    fos.close();
+                }
+                else
+                {
+                    System.out.println("두 비밀번호가 일치하지 않아 설정에 실패하였습니다.");
+                }
+                System.out.println();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

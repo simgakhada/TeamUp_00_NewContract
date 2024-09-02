@@ -1,5 +1,7 @@
 package simgakhada.teamup00.run;
 
+import static simgakhada.teamup00.run.LoginSequence.loginSequence;
+
 /**
  * "메인"
  * 프로젝트의 메인 메소드입니다.
@@ -11,6 +13,6 @@ public class Application
 {
     public static void main(String[] args)
     {
-        MainController.run();
+        loginSequence();
     }
 }

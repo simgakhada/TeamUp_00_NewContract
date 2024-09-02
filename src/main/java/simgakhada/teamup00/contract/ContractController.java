@@ -3,6 +3,11 @@ package simgakhada.teamup00.contract;
 import simgakhada.teamup00.run.MainScripts;
 import simgakhada.teamup00.settings.SettingsDAO;
 import simgakhada.teamup00.settings.settingsenum.Sort;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 import static simgakhada.teamup00.template.JDBCTemplate.getConnection2;
@@ -19,6 +24,10 @@ public class ContractController
     Scanner sc = new Scanner(System.in);
     private ContractDAO dao = new ContractDAO("src/main/resources/mapper/menu-query.xml");
     ContractScripts c = new ContractScripts();
+    File path = new File("src/main/resources/config/settings.properties");
+    Properties prop = new Properties();
+    FileInputStream fis;
+
     public void run()
     {
         MainScripts m = new MainScripts();
@@ -69,6 +78,13 @@ public class ContractController
         SettingsDAO settingsDAO = new SettingsDAO();
         MainScripts m = new MainScripts();
         Sort sort;
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         while (true)
         {
@@ -105,14 +121,23 @@ public class ContractController
                         System.out.print("정렬 기준: ");
                         System.out.println(sort.getChoice());
                         System.out.println();
-                        System.out.println("이번에 사용한 정렬 기준을 설정에 저장하시겠습니까?");
-                        System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
-                        char YN = sc.next().charAt(0);
-                        sc.nextLine();
-                        if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                        if (prop.getProperty("autoSave").equals("true"))
+                        {
+                            System.out.println("자동 저장이 켜져있습니다.");
+                            System.out.println("설정을 저장하고 이전으로 돌아갑니다.");
                             settingsDAO.saveSortCondition(choice2);
+                        }
                         else
-                            System.out.println("저장하지 않고 이전으로 돌아갑니다.");
+                        {
+                            System.out.println("이번에 사용한 검색 기준을 설정에 저장하시겠습니까?");
+                            System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
+                            char YN = sc.next().charAt(0);
+                            sc.nextLine();
+                            if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                                settingsDAO.saveSortCondition(choice2);
+                            else
+                                System.out.println("저장하지 않고 이전으로 돌아갑니다.");
+                        }
                     }
                     else if(choice2 == 9)
                     {

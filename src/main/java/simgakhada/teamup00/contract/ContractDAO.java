@@ -237,10 +237,19 @@ public class ContractDAO
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(prop.getProperty(query));
-            while(rs.next())
+            if(!rs.next())
             {
-                System.out.println(rs.getString("NAME") + " " + rs.getString("PHONE")+ " " + rs.getString("EMAIL")+ " " + rs.getString("ADDRESS")+ " " + rs.getString("BIRTH"));
+                System.out.println("연락처가 비어있습니다.");
             }
+            else
+                while(rs.next())
+                {
+                    System.out.println("이름: " + rs.getString("NAME")
+                            + " 전화번호: " + rs.getString("PHONE")
+                            + " 이메일: " + rs.getString("EMAIL")
+                            + " 주소: " + rs.getString("ADDRESS")
+                            + " 생년월일: " + rs.getString("BIRTH"));
+                }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

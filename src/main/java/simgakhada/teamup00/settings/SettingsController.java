@@ -68,6 +68,18 @@ public class SettingsController
                     }
                     break;
 
+                case 4:
+                    dao.autoSaveOnOff();
+                    break;
+
+                case 5:
+                    dao.lockUnlock();
+                    break;
+
+                case 6:
+                    dao.changePassword();
+                    break;
+
                 case 9:
                     System.out.println();
                     System.out.println("설정을 마치고 메인 메뉴로 이동합니다.");

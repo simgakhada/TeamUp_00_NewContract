@@ -1,5 +1,10 @@
 package simgakhada.teamup00.settings;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * SettingsScripts
  * SettingsController 클래스에서 사용되는 연속된 print(ln)을
@@ -7,15 +12,50 @@ package simgakhada.teamup00.settings;
  */
 public class SettingsScripts
 {
+    File path = new File("src/main/resources/config/settings.properties");
+    Properties prop = new Properties();
+    FileInputStream fis;
+
     public void settingsScriptController()
     {
-        System.out.println("[설정] 검색 및 정렬 기준에 대한 설정을 관리합니다.");
-        System.out.println("기능을 선택해주세요.");
-        System.out.println("1. 현재 설정 확인");
-        System.out.println("2. 검색 기준 설정 변경");
-        System.out.println("3. 정렬 기준 설정 변경");
-        System.out.println("9. 설정 종료 및 메인 메뉴로");
-        System.out.print("번호 입력: ");
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            System.out.println("[설정] 검색 및 정렬 기준에 대한 설정을 관리합니다.");
+            System.out.println("기능을 선택해주세요.");
+            System.out.println("1. 현재 설정 확인");
+            System.out.println("2. 검색 기준 설정 변경");
+            System.out.println("3. 정렬 기준 설정 변경");
+            if(prop.getProperty("autoSave").equals("false"))
+            {
+                System.out.println("4. 자동 저장 기능 켜기");
+            }
+            else
+            {
+                System.out.println("4. 자동 저장 기능 끄기");
+            }
+            if(prop.getProperty("locked").equals("false"))
+            {
+                System.out.println("5. 프로그램 잠금 설정");
+            }
+            else
+            {
+                System.out.println("5. 프로그램 잠금 해제");
+            }
+            if(prop.getProperty("password").isEmpty())
+            {
+                System.out.println("6. 새 비밀번호 설정");
+            }
+            else
+            {
+                System.out.println("6. 비밀번호 변경 / 삭제");
+            }
+            System.out.println("9. 설정 종료 및 메인 메뉴로");
+            System.out.print("번호 입력: ");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void settingsScriptSearch()

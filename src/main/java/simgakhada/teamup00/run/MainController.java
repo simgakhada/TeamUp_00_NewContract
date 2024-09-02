@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class MainController
 {
-    public static void run()
+    public void run()
     {
         Scanner sc = new Scanner(System.in);
         MainScripts m = new MainScripts();

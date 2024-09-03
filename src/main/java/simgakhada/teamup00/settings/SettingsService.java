@@ -19,7 +19,7 @@ import java.util.Scanner;
  * 단순 while, switch... case문은 SettingsController 클래스를 별도로 선언하여
  * 해당 클래스에 기능을 이관하였습니다.
  */
-public class SettingsDAO
+public class SettingsService
 {
     File path = new File("src/main/resources/config/settings.properties");
     Properties prop = new Properties();
@@ -228,24 +228,27 @@ public class SettingsDAO
                 System.out.println();
             }
             else
-            {
-                System.out.println("현재 잠금이 설정되어 있지 않습니다.");
-                System.out.println("잠금을 설정하시겠습니까?");
-                System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
-                char YN = sc.next().charAt(0);
-                sc.nextLine();
-                if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                if(!prop.getProperty("password").isEmpty())
                 {
-                    System.out.println("잠금이 설정되었습니다.");
-                    fos = new FileOutputStream(path);
-                    prop.setProperty("locked", "true");
-                    prop.store(fos, "Last Changes: locked = true");
-                    fos.close();
+                    System.out.println("현재 잠금이 설정되어 있지 않습니다.");
+                    System.out.println("잠금을 설정하시겠습니까?");
+                    System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
+                    char YN = sc.next().charAt(0);
+                    sc.nextLine();
+                    if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                    {
+                        System.out.println("잠금이 설정되었습니다.");
+                        fos = new FileOutputStream(path);
+                        prop.setProperty("locked", "true");
+                        prop.store(fos, "Last Changes: locked = true");
+                        fos.close();
+                    }
+                    else
+                        System.out.println("이전으로 돌아갑니다.");
                 }
                 else
-                    System.out.println("이전으로 돌아갑니다.");
-                System.out.println();
-            }
+                    System.out.println("비밀번호가 존재하지 않으면 잠금을 설정할 수 없습니다.");
+            System.out.println();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

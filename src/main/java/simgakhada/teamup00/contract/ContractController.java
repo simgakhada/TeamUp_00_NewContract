@@ -1,7 +1,7 @@
 package simgakhada.teamup00.contract;
 
 import simgakhada.teamup00.run.MainScripts;
-import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.SettingsService;
 import simgakhada.teamup00.settings.settingsenum.Sort;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public class ContractController
     public void runCase4()
     {
         Scanner sc = new Scanner(System.in);
-        SettingsDAO settingsDAO = new SettingsDAO();
+        SettingsService settingsService = new SettingsService();
         MainScripts m = new MainScripts();
         Sort sort;
         try {
@@ -95,7 +95,7 @@ public class ContractController
             switch (choice)
             {
                 case 1:
-                    int setting = settingsDAO.loadSortCondition();
+                    int setting = settingsService.loadSortCondition();
                     if(setting == 0)
                     {
                         System.out.println("저장된 정렬 기준이 없습니다.");
@@ -105,7 +105,7 @@ public class ContractController
                     {
                         dao.lookUp(getConnection2(), setting);
                         System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회하였습니다.");
-                        settingsDAO.printSavedConditionSort();
+                        settingsService.printSavedConditionSort();
                     }
                     System.out.println();
                     return;
@@ -123,9 +123,9 @@ public class ContractController
                         System.out.println();
                         if (prop.getProperty("autoSave").equals("true"))
                         {
-                            System.out.println("자동 저장이 켜져있습니다.");
+                            System.out.println("자동 저장이 켜져 있습니다.");
                             System.out.println("설정을 저장하고 이전으로 돌아갑니다.");
-                            settingsDAO.saveSortCondition(choice2);
+                            settingsService.saveSortCondition(choice2);
                         }
                         else
                         {
@@ -134,7 +134,7 @@ public class ContractController
                             char YN = sc.next().charAt(0);
                             sc.nextLine();
                             if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
-                                settingsDAO.saveSortCondition(choice2);
+                                settingsService.saveSortCondition(choice2);
                             else
                                 System.out.println("저장하지 않고 이전으로 돌아갑니다.");
                         }

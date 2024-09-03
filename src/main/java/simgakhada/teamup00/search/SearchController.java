@@ -1,7 +1,7 @@
 package simgakhada.teamup00.search;
 
 import simgakhada.teamup00.run.MainScripts;
-import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.SettingsService;
 import simgakhada.teamup00.settings.settingsenum.Search;
 
 import java.io.File;
@@ -18,7 +18,7 @@ public class SearchController
     Properties prop = new Properties();
     FileInputStream fis;
     SearchService searchService = new SearchService();
-    SettingsDAO settingsDAO = new SettingsDAO();
+    SettingsService settingsService = new SettingsService();
     Search search;
     public void run()
     {
@@ -39,7 +39,7 @@ public class SearchController
                 switch (choice)
                 {
                     case 1:
-                        int setting = settingsDAO.loadSearchCondition();
+                        int setting = settingsService.loadSearchCondition();
                         if(setting == 0)
                         {
                             System.out.println("저장된 검색 기준이 없습니다.");
@@ -62,9 +62,9 @@ public class SearchController
                             System.out.println();
                             if (prop.getProperty("autoSave").equals("true"))
                             {
-                                System.out.println("자동 저장이 켜져있습니다.");
+                                System.out.println("자동 저장이 켜져 있습니다.");
                                 System.out.println("설정을 저장하고 이전으로 돌아갑니다.");
-                                settingsDAO.saveSearchCondition(choice2);
+                                settingsService.saveSearchCondition(choice2);
                             }
                             else
                             {
@@ -73,7 +73,7 @@ public class SearchController
                                 char YN = sc.next().charAt(0);
                                 sc.nextLine();
                                 if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
-                                    settingsDAO.saveSearchCondition(choice2);
+                                    settingsService.saveSearchCondition(choice2);
                                 else
                                     System.out.println("저장하지 않고 이전으로 돌아갑니다.");
                             }

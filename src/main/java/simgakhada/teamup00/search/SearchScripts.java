@@ -1,15 +1,15 @@
 package simgakhada.teamup00.search;
 
-import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.SettingsService;
 
 public class SearchScripts
 {
-    SettingsDAO settingsDAO = new SettingsDAO();
+    SettingsService settingsService = new SettingsService();
     public void searchScriptsController()
     {
         System.out.println("[연락처 검색] 입력한 내용과 일치하는 연락처를 찾아 출력합니다.");
         System.out.print("현재 저장된 ");
-        settingsDAO.printSavedConditionSearch();
+        settingsService.printSavedConditionSearch();
         System.out.println("1. 현재 저장된 기준에 따라 검색하기");
         System.out.println("2. 검색 기준 직접 선택하기");
         System.out.println("9. 뒤로가기");

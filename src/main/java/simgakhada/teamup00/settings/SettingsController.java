@@ -13,7 +13,7 @@ public class SettingsController
     public void run()
     {
         Scanner sc = new Scanner(System.in);
-        SettingsDAO dao = new SettingsDAO();
+        SettingsService dao = new SettingsService();
         SettingsScripts s = new SettingsScripts();
         MainScripts m = new MainScripts();
         while (true)

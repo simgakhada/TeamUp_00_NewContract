@@ -1,6 +1,6 @@
 package simgakhada.teamup00.contract;
 
-import simgakhada.teamup00.settings.SettingsDAO;
+import simgakhada.teamup00.settings.SettingsService;
 
 /**
  * ContractScripts
@@ -9,7 +9,7 @@ import simgakhada.teamup00.settings.SettingsDAO;
  */
 public class ContractScripts
 {
-    SettingsDAO settingsDAO = new SettingsDAO();
+    SettingsService settingsService = new SettingsService();
     public void contractScriptController()
     {
         System.out.println("[연락처 관리 및 조회] 연락처와 그에 대한 정보를 관리하고, 조회할 수 있습니다.");
@@ -39,7 +39,7 @@ public class ContractScripts
     {
         System.out.println("[연락처 조회] 연락처를 특정 기준에 따라 정렬하거나, 정렬하지 않고 출력합니다.");
         System.out.print("현재 저장된 ");
-        settingsDAO.printSavedConditionSort();
+        settingsService.printSavedConditionSort();
         System.out.println("1. 현재 저장된 기준에 따라 출력하기");
         System.out.println("2. 정렬 기준 직접 선택하기");
         System.out.println("9. 뒤로가기");

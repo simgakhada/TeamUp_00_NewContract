@@ -31,7 +31,6 @@ public class SearchService
         PreparedStatement ps;
         ResultSet rs;
         String query = searchSet.getQuery();
-        Search search;
 
         try {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/menu-query.xml"));

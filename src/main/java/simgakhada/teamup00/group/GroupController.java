@@ -70,7 +70,7 @@ public class GroupController
     {
         Scanner sc = new Scanner(System.in);
         GroupDAO dao = new GroupDAO("src/main/resources/mapper/menu-query.xml");
-        // SettingsDAO settingsDAO = new SettingsDAO();
+        // SettingsService settingsDAO = new SettingsService();
         GroupScripts g = new GroupScripts();
         MainScripts m = new MainScripts();
         GroupService gs = new GroupService();

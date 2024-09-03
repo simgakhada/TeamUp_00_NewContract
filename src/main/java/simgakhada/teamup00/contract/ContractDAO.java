@@ -137,33 +137,52 @@ public class ContractDAO
     {
         Scanner sc = new Scanner(System.in);
         PreparedStatement ps;
+        PreparedStatement ps2;
         String query = prop.getProperty("updateInfo");
+        String query2 = prop.getProperty("searchByName");
+        ResultSet rs;
 
         boolean vCheckPN;
         boolean dCheckPN;
         boolean vCheckEmail;
         boolean dCheckEmail;
         boolean vCheckBirth;
-
+        String oldPhone = "";
+        String oldEmail = "";
+        String oldAddress = "";
+        String oldBirth = "";
         int result = 0;
+
+        System.out.print("변경을 원하는 연락처의 이름을 입력해 주세요.: ");
+        String name = sc.nextLine();
+        System.out.println("연락처 정보 수정을 시작합니다.");
+        System.out.println("변경하지 않고자 하는 정보가 있을 경우 '건너뛰기'을 입력하면 해당 내용은 변경되지 않습니다.");
+        System.out.print("새로운 이름을 입력해 주세요.: ");
+        String newName = sc.nextLine();
+        System.out.print("새로운 전화번호를 입력해주세요. (입력 예시: 01012345678): ");
+        String phone = sc.nextLine();
+        System.out.print("새로운 이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
+        String email = sc.nextLine();
+        System.out.print("새로운 주소를 입력해주세요.: ");
+        String address = sc.nextLine();
+        System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
+        String birth = sc.nextLine();
+
+        System.out.println();
+        System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
 
         try {
             ps = con.prepareStatement(query);
-            System.out.print("변경을 원하는 연락처의 이름을 입력해 주세요.: ");
-            String name = sc.nextLine();
-            System.out.println("연락처 정보 수정을 시작합니다.");
-            System.out.println("변경하지 않고자 하는 정보가 있을 경우 '건너뛰기'을 입력하면 해당 내용은 변경되지 않습니다.");
-            System.out.print("새로운 이름을 입력해 주세요.: ");
-            String newName = sc.nextLine();
-            System.out.print("새로운 전화번호를 입력해주세요. (입력 예시: 01012345678): ");
-            String phone = sc.nextLine();
-            System.out.print("새로운 이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
-            String email = sc.nextLine();
-            System.out.print("새로운 주소를 입력해주세요.: ");
-            String address = sc.nextLine();
-            System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
-            String birth = sc.nextLine();
-
+            ps2 = con.prepareStatement(query2);
+            ps2.setString(1, name);
+            rs = ps2.executeQuery();
+            while (rs.next())
+            {
+                oldPhone = rs.getString("PHONE");
+                oldEmail = rs.getString("EMAIL");
+                oldAddress = rs.getString("ADDRESS");
+                oldBirth = rs.getString("BIRTH");
+            }
             if(newName.equals("건너뛰기"))
             {
                 newName = name;
@@ -172,6 +191,7 @@ public class ContractDAO
             {
                 vCheckPN = true;
                 dCheckPN = true;
+                phone = oldPhone;
             }
             else
             {
@@ -182,6 +202,7 @@ public class ContractDAO
             {
                 vCheckEmail = true;
                 dCheckEmail = true;
+                email = oldEmail;
             }
             else
             {
@@ -190,18 +211,17 @@ public class ContractDAO
             }
             if(address.equals("건너뛰기"))
             {
+                address = oldAddress;
             }
             if(birth.equals("건너뛰기"))
             {
                 vCheckBirth = true;
+                birth = oldBirth;
             }
             else
             {
-                 vCheckBirth = validation.vCheckBirth(birth);
+                vCheckBirth = validation.vCheckBirth(birth);
             }
-
-            System.out.println();
-            System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
 
             if(vCheckPN && dCheckPN && vCheckEmail && dCheckEmail && vCheckBirth)
             {
@@ -212,7 +232,6 @@ public class ContractDAO
                 ps.setString(4,address);
                 ps.setString(5,birth);
                 result = ps.executeUpdate();
-
             }
             else
             {

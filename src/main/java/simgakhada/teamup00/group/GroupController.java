@@ -18,7 +18,7 @@ public class GroupController
         GroupDAO dao = new GroupDAO();
         GroupScripts g = new GroupScripts();
         MainScripts m = new MainScripts();
-        GroupSearch gs = new GroupSearch();
+        GroupService gs = new GroupService();
         while(true)
         {
             g.groupScriptsController();

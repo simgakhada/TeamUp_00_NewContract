@@ -97,6 +97,7 @@ public class ContractDAO
             }
             if(result == 1)
                 System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 추가되었습니다.");
+            System.out.println();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -259,7 +260,8 @@ public class ContractDAO
                 System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 수정되었습니다.");
             System.out.println();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("연락처 수정에 실패했습니다.");
+            // throw new RuntimeException(e);
         }
     }
 

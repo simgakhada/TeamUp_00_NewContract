@@ -95,7 +95,8 @@ public class ContractValidation
                 result = false;
 
         } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+            result = false;
+            //throw new RuntimeException(e);
         }
         return result;
     }
@@ -144,7 +145,8 @@ public class ContractValidation
                 result = false;
 
         } catch (IOException | SQLException e){
-            throw new RuntimeException(e);
+            result = false;
+            //throw new RuntimeException(e);
         }
         return result;
     }
@@ -166,7 +168,8 @@ public class ContractValidation
             if (dateFormat.format(ret).equals(birth.trim()))
                 result = true;
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            result = false;
+            //throw new RuntimeException(e);
         }
         return result;
     }

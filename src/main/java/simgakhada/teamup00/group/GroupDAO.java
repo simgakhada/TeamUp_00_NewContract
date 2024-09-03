@@ -22,7 +22,7 @@ public class GroupDAO
 
     }
 
-    public void loopUp()
+    public void lookUp()
     {
 
     }

@@ -1,6 +1,8 @@
 package simgakhada.teamup00.contract;
 
 import simgakhada.teamup00.contract.contractenum.ContractSortSet;
+import simgakhada.teamup00.search.SearchService;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -33,7 +35,6 @@ public class ContractDAO
     public void add(Connection con)
     {
         Scanner sc = new Scanner(System.in);
-        ContractDTO dto = new ContractDTO();
         PreparedStatement ps;
         int result = 0;
         String query = prop.getProperty("insertInfo");
@@ -43,7 +44,6 @@ public class ContractDAO
             ps = con.prepareStatement(query);
             System.out.print("이름을 입력해주세요.: ");
             String name = sc.nextLine();
-            dto.setName(name);
             System.out.print("전화번호를 입력해주세요. (입력 예시: 01012345678): ");
             String phone = sc.nextLine();
             System.out.print("이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
@@ -137,15 +137,22 @@ public class ContractDAO
     {
         Scanner sc = new Scanner(System.in);
         PreparedStatement ps;
-        int result = 0;
         String query = prop.getProperty("updateInfo");
+
+        boolean vCheckPN;
+        boolean dCheckPN;
+        boolean vCheckEmail;
+        boolean dCheckEmail;
+        boolean vCheckBirth;
+
+        int result = 0;
 
         try {
             ps = con.prepareStatement(query);
             System.out.print("변경을 원하는 연락처의 이름을 입력해 주세요.: ");
             String name = sc.nextLine();
             System.out.println("연락처 정보 수정을 시작합니다.");
-            System.out.println("변경하지 않고자 하는 정보가 있을 경우 '다음'을 입력하면 해당 내용은 변경되지 않습니다.");
+            System.out.println("변경하지 않고자 하는 정보가 있을 경우 '건너뛰기'을 입력하면 해당 내용은 변경되지 않습니다.");
             System.out.print("새로운 이름을 입력해 주세요.: ");
             String newName = sc.nextLine();
             System.out.print("새로운 전화번호를 입력해주세요. (입력 예시: 01012345678): ");
@@ -157,37 +164,48 @@ public class ContractDAO
             System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
             String birth = sc.nextLine();
 
-            System.out.println();
-            System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
-
-            boolean vCheckPN = validation.vCheckPN(phone);
-            boolean dCheckPN = validation.dCheckPN(phone);
-            boolean vCheckEmail = validation.vCheckEmail(email);
-            boolean dCheckEmail = validation.dCheckEmail(email);
-            boolean vCheckBirth = validation.vCheckBirth(birth);
-
-            if(newName.equals("다음"))
+            if(newName.equals("건너뛰기"))
             {
                 newName = name;
             }
-            if(phone.equals("다음"))
+            if(phone.equals("건너뛰기"))
             {
                 vCheckPN = true;
                 dCheckPN = true;
             }
-            if(email.equals("다음"))
+            else
+            {
+                vCheckPN = validation.vCheckPN(phone);
+                dCheckPN = validation.dCheckPN(phone);
+            }
+            if(email.equals("건너뛰기"))
             {
                 vCheckEmail = true;
                 dCheckEmail = true;
             }
-            if(birth.equals("다음"))
+            else
+            {
+                vCheckEmail = validation.vCheckEmail(email);
+                dCheckEmail = validation.dCheckEmail(email);
+            }
+            if(address.equals("건너뛰기"))
+            {
+            }
+            if(birth.equals("건너뛰기"))
             {
                 vCheckBirth = true;
             }
+            else
+            {
+                 vCheckBirth = validation.vCheckBirth(birth);
+            }
+
+            System.out.println();
+            System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
 
             if(vCheckPN && dCheckPN && vCheckEmail && dCheckEmail && vCheckBirth)
             {
-                ps.setString(7,name);
+                ps.setString(6,name);
                 ps.setString(1,newName);
                 ps.setString(2,phone);
                 ps.setString(3,email);
@@ -221,7 +239,8 @@ public class ContractDAO
                 }
             }
             if(result == 1)
-                System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 추가되었습니다.");
+                System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 수정되었습니다.");
+            System.out.println();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -54,10 +54,11 @@ public class SearchService
                             + " 이메일: " + rs.getString("EMAIL")
                             + " 주소: " + rs.getString("ADDRESS")
                             + " 생년월일: " + rs.getString("BIRTH"));
+
+                    search = Search.values()[num];
+                    System.out.println("현재 저장된 기준으로 검색하여 연락처를 출력하였습니다.");
+                    System.out.println("검색 기준: " + search.getChoice());
                 }
-                search = Search.values()[num];
-                System.out.println("현재 저장된 기준으로 검색하여 연락처를 출력하였습니다.");
-                System.out.println("검색 기준: " + search.getChoice());
             }
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);

@@ -70,7 +70,7 @@ public class ContractController
 
     /**
      * runCase4
-     * 연락처를 조회를 별도의 컨트롤러로 다룹니다.
+     * 연락처 조회를 별도의 컨트롤러로 다룹니다.
      */
     public void runCase4()
     {

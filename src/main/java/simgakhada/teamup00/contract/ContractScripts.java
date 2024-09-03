@@ -17,7 +17,7 @@ public class ContractScripts
         System.out.println("2. 연락처 삭제");
         System.out.println("3. 연락처 변경");
         System.out.println("4. 연락처 조회");
-        System.out.println("9. 메인 메뉴로");
+        System.out.println("9. 메인 메뉴로 이동");
         System.out.print("번호 입력: ");
     }
 

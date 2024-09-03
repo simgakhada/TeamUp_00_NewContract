@@ -20,6 +20,56 @@
         WHERE NAME = ? ;
     </entry>
 
+    <entry key="insertGroup">
+        INSERT INTO CONTRACT_GROUP
+        ( GROUP_NAME )
+        VALUES
+        ( ? )
+    </entry>
+
+    <entry key="deleteGroup">
+        DELETE FROM CONTRACT_GROUP
+        WHERE GROUP_NAME = ? ;
+    </entry>
+
+    <entry key="updateGroup">
+        UPDATE CONTRACT_GROUP
+        SET GROUP_NAME = ?
+        WHERE GROUP_NAME = ? ;
+    </entry>
+
+    <entry key="insertContractInGroup">
+        UPDATE CONTRACT
+        SET GROUP_NO = ?
+        WHERE NAME = ?
+    </entry>
+
+    <entry key="deleteContractInGroup">
+        UPDATE CONTRACT
+        SET C.GROUP_NO = G.GROUP_NO
+        JOIN CONTRACT_GROUP G ON C.GROUP_NO = G.GROUP_NO
+        WHERE NAME = ?
+    </entry>
+
+    <entry key="updateContractInGroup">
+        UPDATE CONTRACT
+        SET GROUP_NO = ?
+        WHERE NAME = ?
+    </entry>
+
+    <entry key="lookUpGroup">
+        SELECT
+        C.NAME,
+        C.PHONE,
+        C.EMAIL,
+        C.ADDRESS,
+        C.BIRTH,
+        G.GROUP_NAME
+        FROM CONTRACT C
+        JOIN CONTRACT_GROUP G ON C.GROUP_NO = G.GROUP_NO
+        WHERE G.GROUP_NAME LIKE ?
+    </entry>
+
     <entry key="duplicateCheckPN">
         SELECT
         PHONE

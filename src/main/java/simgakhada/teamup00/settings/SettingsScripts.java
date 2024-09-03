@@ -51,7 +51,7 @@ public class SettingsScripts
             {
                 System.out.println("6. 비밀번호 변경 / 삭제");
             }
-            System.out.println("9. 설정 종료 및 메인 메뉴로");
+            System.out.println("9. 설정 종료 및 메인 메뉴로 이동");
             System.out.print("번호 입력: ");
         } catch (IOException e) {
             throw new RuntimeException(e);

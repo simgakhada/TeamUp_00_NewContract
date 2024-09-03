@@ -168,9 +168,6 @@ public class ContractDAO
         System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
         String birth = sc.nextLine();
 
-        System.out.println();
-        System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
-
         try {
             ps = con.prepareStatement(query);
             ps2 = con.prepareStatement(query2);
@@ -223,6 +220,8 @@ public class ContractDAO
                 vCheckBirth = validation.vCheckBirth(birth);
             }
 
+            System.out.println();
+            System.out.println("모든 입력이 완료되어 전화번호, 이메일, 주소에 대한 유효성 검사를 실시합니다.");
             if(vCheckPN && dCheckPN && vCheckEmail && dCheckEmail && vCheckBirth)
             {
                 ps.setString(6,name);

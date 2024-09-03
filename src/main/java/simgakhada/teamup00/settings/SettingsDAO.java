@@ -174,7 +174,6 @@ public class SettingsDAO
         try {
             fis = new FileInputStream(path);
             prop.load(fis);
-            fis.close();
             fos = new FileOutputStream(path);
             if(prop.getProperty("autoSave").equals("false"))
             {
@@ -185,7 +184,7 @@ public class SettingsDAO
                 System.out.println("자동 저장 기능을 켭니다.");
                 System.out.println();
             }
-            if(prop.getProperty("autoSave").equals("true"))
+            else
             {
                 prop.setProperty("autoSave", "false");
                 prop.store(fos, "Last change: autoSave = false");

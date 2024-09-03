@@ -8,6 +8,8 @@ public enum Search
     PHONE_4DIGITS("전화번호 (4자리)", 3),
     EMAIL("이메일", 4),
     ADDRESS("주소", 5);
+    //NAME_LAST("searchByLastName", 6);
+
 
     private final String choice;
     private final int value;

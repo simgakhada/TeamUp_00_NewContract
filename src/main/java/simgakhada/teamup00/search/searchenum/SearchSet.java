@@ -8,6 +8,7 @@ public enum SearchSet
     PHONE_4DIGITS("searchByPhone4Digits", 3),
     EMAIL("searchByEmail", 4),
     ADDRESS("searchByAddress", 5);
+    //NAME_LAST("searchByLastName", 6);
 
     private final String query;
     private final int value;

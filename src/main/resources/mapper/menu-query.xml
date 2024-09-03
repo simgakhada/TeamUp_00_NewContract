@@ -176,6 +176,13 @@
         WHERE NAME = ?
     </entry>
 
+    <entry key="searchByLastName">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE NAME LIKE CONCAT(?, '%')
+    </entry>
+
     <entry key="searchByPhone">
         SELECT
         *
@@ -202,5 +209,30 @@
         *
         FROM CONTRACT
         WHERE ADDRESS = ?
+    </entry>
+
+    <entry key="numberOfContracts">
+        SELECT
+        COUNT(CONTRACT_NO)
+        FROM CONTRACT
+    </entry>
+
+    <entry key="numberOfContractsInGroup">
+        SELECT
+        COUNT(*)
+        FROM CONTRACT
+        WHERE GROUP_NO >= 0
+    </entry>
+
+    <entry key="findTheLatestAddedContract">
+        SELECT
+        *
+        FROM CONTRACT
+        WHERE CONTRACT_NO =
+        (
+        SELECT
+        MAX(CONTRACT_NO)
+        FROM CONTRACT
+        )
     </entry>
 </properties>

@@ -1,12 +1,7 @@
 package simgakhada.teamup00.group;
 
-import simgakhada.teamup00.contract.ContractDAO;
 import simgakhada.teamup00.run.MainScripts;
-import simgakhada.teamup00.settings.SettingsDAO;
-import simgakhada.teamup00.settings.settingsenum.Sort;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Scanner;
 
 import static simgakhada.teamup00.template.JDBCTemplate.getConnection;

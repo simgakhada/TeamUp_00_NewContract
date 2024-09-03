@@ -1,7 +1,6 @@
 package simgakhada.teamup00.contract;
 
 import simgakhada.teamup00.contract.contractenum.ContractSortSet;
-import simgakhada.teamup00.search.SearchService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -274,19 +273,16 @@ public class ContractDAO
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(prop.getProperty(query));
-            if(!rs.next())
-            {
-                System.out.println("연락처가 비어있습니다.");
-            }
-            else
-                while(rs.next())
-                {
+            if(rs.next())
+                do {
                     System.out.println("이름: " + rs.getString("NAME")
                             + " 전화번호: " + rs.getString("PHONE")
                             + " 이메일: " + rs.getString("EMAIL")
                             + " 주소: " + rs.getString("ADDRESS")
                             + " 생년월일: " + rs.getString("BIRTH"));
-                }
+                } while (rs.next());
+            else
+                System.out.println("조회 결과가 존재하지 않습니다.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

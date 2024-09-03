@@ -25,6 +25,7 @@ public class SearchController
         Scanner sc = new Scanner(System.in);
         SearchScripts s = new SearchScripts();
         MainScripts m = new MainScripts();
+        int choice2 = 0;
         try {
             fis = new FileInputStream(path);
             prop.load(fis);
@@ -53,7 +54,7 @@ public class SearchController
 
                     case 2:
                         s.searchScriptsCase2();
-                        int choice2 = sc.nextInt();
+                        choice2 = sc.nextInt();
                         sc.nextLine();
                         if(choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4 || choice2 == 5)
                         {
@@ -126,5 +127,8 @@ public class SearchController
             searchWith = sc.nextLine();
         }
         searchService.superSearch(getConnection2(), searchWith, num);
+        search = Search.values()[num];
+        System.out.println("현재 저장된 기준으로 검색하여 연락처를 출력하였습니다.");
+        System.out.println("검색 기준: " + search.getChoice());
     }
 }

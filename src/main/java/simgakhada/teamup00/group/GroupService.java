@@ -1,7 +1,5 @@
 package simgakhada.teamup00.group;
 
-import simgakhada.teamup00.settings.settingsenum.Search;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,7 +42,7 @@ public class GroupService
             else
             {
                 System.out.println("연락처 이동에 실패하였습니다.");
-                System.out.println("그룹 이름이 존재하지 않습니다.");
+                System.out.println("그룹 이름, 혹은 연락처 정보가 존재하지 않습니다.");
             }
             System.out.println();
         } catch (SQLException | IOException e) {
@@ -80,7 +78,7 @@ public class GroupService
             else
             {
                 System.out.println("연락처 제외에 실패하였습니다.");
-                System.out.println("그룹 이름이 존재하지 않습니다.");
+                System.out.println("그룹 이름, 혹은 연락처 정보가 존재하지 않습니다.");
             }
             System.out.println();
         } catch (SQLException | IOException e) {

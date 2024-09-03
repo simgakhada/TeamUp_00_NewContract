@@ -38,23 +38,22 @@
         WHERE GROUP_NAME = ? ;
     </entry>
 
-    <entry key="insertContractInGroup">
+    <entry key="updateContractInGroup">
         UPDATE CONTRACT
-        SET GROUP_NO = ?
-        WHERE NAME = ?
+        SET GROUP_NO = (SELECT GROUP_NO FROM CONTRACT_GROUP WHERE GROUP_NAME = ?)
+        WHERE NAME = ?;
     </entry>
 
     <entry key="deleteContractInGroup">
         UPDATE CONTRACT
-        SET C.GROUP_NO = G.GROUP_NO
-        JOIN CONTRACT_GROUP G ON C.GROUP_NO = G.GROUP_NO
-        WHERE NAME = ?
+        SET GROUP_NO = null
+        WHERE NAME = ?;
     </entry>
 
-    <entry key="updateContractInGroup">
-        UPDATE CONTRACT
-        SET GROUP_NO = ?
-        WHERE NAME = ?
+    <entry key="printGroup">
+        SELECT
+        GROUP_NAME
+        FROM CONTRACT_GROUP
     </entry>
 
     <entry key="lookUpGroup">

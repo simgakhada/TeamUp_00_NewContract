@@ -51,6 +51,10 @@ public class GroupController
                     runCase4();
                     break;
 
+                case 5:
+                    dao.print(getConnection2());
+                    break;
+
                 case 9:
                     System.out.println();
                     System.out.println("그룹 관리를 마치고 메인 메뉴로 돌아갑니다.");
@@ -71,7 +75,7 @@ public class GroupController
     {
         Scanner sc = new Scanner(System.in);
         GroupDAO dao = new GroupDAO("src/main/resources/mapper/menu-query.xml");
-        SettingsDAO settingsDAO = new SettingsDAO();
+        // SettingsDAO settingsDAO = new SettingsDAO();
         GroupScripts g = new GroupScripts();
         MainScripts m = new MainScripts();
         GroupService gs = new GroupService();
@@ -85,9 +89,15 @@ public class GroupController
             switch (choice)
             {
                 case 1:
+                    gs.updateContractInGroup(getConnection2());
                     break;
 
                 case 2:
+                    gs.deleteContractInGroup(getConnection2());
+                    break;
+
+                case 3:
+                    dao.lookUp(getConnection2());
                     break;
 
                 case 9:

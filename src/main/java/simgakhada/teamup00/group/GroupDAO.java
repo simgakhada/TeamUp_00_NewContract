@@ -2,10 +2,7 @@ package simgakhada.teamup00.group;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -23,6 +20,32 @@ public class GroupDAO
         try {
             prop.loadFromXML(new FileInputStream(url));
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void print(Connection con)
+    {
+        Properties prop = new Properties();
+        System.out.println("[그룹 출력] 현재 등록된 그룹을 모두 출력합니다.");
+        System.out.println("출력 결과");
+        Statement stmt;
+        ResultSet rs;
+
+        try {
+            prop.loadFromXML(new FileInputStream("src/main/resources/mapper/menu-query.xml"));
+            String query = prop.getProperty("printGroup");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            if(!rs.next())
+            {
+                System.out.println("그룹이 존재하지 않습니다.");
+            }
+            else
+                while(rs.next())
+                    System.out.println("그룹명: " + rs.getString("GROUP_NAME"));
+            System.out.println();
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -95,7 +118,7 @@ public class GroupDAO
             System.out.println("[그룹 이름 변경] 그룹의 이름을 변경합니다.");
             System.out.print("변경하실 그룹의 이름을 입력해주세요.: ");
             String groupOld = sc.nextLine();
-            System.out.println("새로운 이름을 입력해주세요.: ");
+            System.out.print("새로운 이름을 입력해주세요.: ");
             String groupNew = sc.nextLine();
             System.out.println();
             ps.setString(2, groupOld);

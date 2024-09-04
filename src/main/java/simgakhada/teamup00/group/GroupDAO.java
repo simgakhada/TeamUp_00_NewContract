@@ -35,13 +35,14 @@ public class GroupDAO
             String query = prop.getProperty("printGroup");
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-            if(!rs.next())
-            {
-                System.out.println("그룹이 존재하지 않습니다.");
-            }
-            else
-                while(rs.next())
+
+            if(rs.next())
+                do {
                     System.out.println("그룹명: " + rs.getString("GROUP_NAME"));
+                } while (rs.next());
+            else
+                System.out.println("그룹이 존재하지 않습니다.");
+
             System.out.println();
         } catch (SQLException e) {
             throw new RuntimeException(e);

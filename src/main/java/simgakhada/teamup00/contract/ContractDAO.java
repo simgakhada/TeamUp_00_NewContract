@@ -95,7 +95,7 @@ public class ContractDAO
                     System.out.println("올바르지 않은 날짜입니다.");
                 }
             }
-            if(result == 1)
+            if(result != 0)
                 System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 추가되었습니다.");
             System.out.println();
         } catch (SQLException e) {
@@ -137,7 +137,7 @@ public class ContractDAO
             }
 
             System.out.println();
-            if (result == 1)
+            if (result != 0)
             {
                 System.out.println(name + "에 대한 모든 연락처 정보를 삭제하였습니다.");
                 System.out.println();
@@ -303,12 +303,12 @@ public class ContractDAO
                     System.out.println("올바르지 않은 날짜입니다.");
                 }
             }
-            if(result == 1)
+            if(result != 0)
                 System.out.println("모든 유효성 검사에 통과하여 연락처가 정상적으로 수정되었습니다.");
             System.out.println();
         } catch (SQLException e) {
-            // System.out.println("연락처 수정에 실패했습니다.");
-            throw new RuntimeException(e);
+            System.out.println("연락처 수정에 실패했습니다.");
+            // throw new RuntimeException(e);
         }
     }
 

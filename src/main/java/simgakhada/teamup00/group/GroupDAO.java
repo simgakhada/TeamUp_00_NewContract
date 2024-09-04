@@ -110,7 +110,7 @@ public class GroupDAO
             ps3 = con.prepareStatement("SET foreign_key_checks = 1");
             ps3.executeUpdate();
 
-            if (result == 1) {
+            if (result != 0) {
                 System.out.println("입력하신 그룹이 성공적으로 삭제되었습니다.");
                 System.out.println();
             } else {

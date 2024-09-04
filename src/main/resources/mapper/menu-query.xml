@@ -55,6 +55,13 @@
         WHERE GROUP_NAME = ? ;
     </entry>
 
+    <entry key="doSomethingContractInGroupSupporter">
+        SELECT
+        GROUP_NAME
+        FROM CONTRACT_GROUP
+        WHERE GROUP_NAME = ?
+    </entry>
+
     <entry key="updateContractInGroup">
         UPDATE CONTRACT
         SET GROUP_NO = (SELECT GROUP_NO FROM CONTRACT_GROUP WHERE GROUP_NAME = ?)

@@ -132,9 +132,9 @@ public class ContractController
                         {
                             System.out.println("이번에 사용한 검색 기준을 설정에 저장하시겠습니까?");
                             System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
-                            char YN = sc.next().charAt(0);
+                            String YN = sc.nextLine();
                             sc.nextLine();
-                            if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                            if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
                                 settingsService.saveSortCondition(Integer.parseInt(choice2));
                             else
                                 System.out.println("저장하지 않고 이전으로 돌아갑니다.");

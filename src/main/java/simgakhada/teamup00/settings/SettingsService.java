@@ -5,6 +5,7 @@ import simgakhada.teamup00.settings.settingsenum.Search;
 import simgakhada.teamup00.settings.settingsenum.Sort;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -233,9 +234,9 @@ public class SettingsService
                     System.out.println("현재 잠금이 설정되어 있지 않습니다.");
                     System.out.println("잠금을 설정하시겠습니까?");
                     System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
-                    char YN = sc.next().charAt(0);
+                    String YN = sc.nextLine();
                     sc.nextLine();
-                    if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                    if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
                     {
                         System.out.println("잠금이 설정되었습니다.");
                         fos = new FileOutputStream(path);
@@ -306,9 +307,9 @@ public class SettingsService
                     {
                         System.out.println("정말 비밀번호를 삭제하시겠습니까?");
                         System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
-                        char YN = sc.next().charAt(0);
+                        String YN = sc.nextLine();
                         sc.nextLine();
-                        if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
+                        if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
                         {
                             System.out.println("비밀번호가 삭제되었습니다.");
                             fos = new FileOutputStream(path);

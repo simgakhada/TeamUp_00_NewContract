@@ -23,7 +23,7 @@ public class MainScripts
     public void defaultMessage()
     {
         System.out.println();
-        System.out.println("올바르지 않은 번호입니다.");
+        System.out.println("올바르지 않은 응답입니다.");
         System.out.println("사용법을 확인 후 다시 시도해주세요.");
         System.out.println();
     }

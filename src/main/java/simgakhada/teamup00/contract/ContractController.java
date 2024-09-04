@@ -7,6 +7,7 @@ import simgakhada.teamup00.settings.settingsenum.Sort;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -34,28 +35,28 @@ public class ContractController
         while(true)
         {
             c.contractScriptController();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+           // sc.nextLine();
             switch (choice)
             {
-                case 1 :
+                case "1" :
                     dao.add(getConnection2());
                     break;
 
-                case 2 :
+                case "2" :
                     dao.delete(getConnection2());
                     break;
 
-                case 3 :
+                case "3" :
                     dao.update(getConnection2());
                     break;
 
-                case 4 :
+                case "4" :
                     System.out.println();
                     runCase4();
                     break;
 
-                case 9 :
+                case "9" :
                     System.out.println();
                     System.out.println("연락처 관리를 마치고 메인 메뉴로 돌아갑니다.");
                     System.out.println();
@@ -89,12 +90,12 @@ public class ContractController
         while (true)
         {
             c.contractScriptCase4();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
 
             switch (choice)
             {
-                case 1:
+                case "1":
                     int setting = settingsService.loadSortCondition();
                     if(setting == 0)
                     {
@@ -103,21 +104,21 @@ public class ContractController
                     }
                     else
                     {
-                        dao.lookUp(getConnection2(), setting);
+                        dao.lookUp(getConnection2(), String.valueOf(setting));
                         System.out.println("현재 저장된 기준으로 정렬하여 연락처를 조회하였습니다.");
                         settingsService.printSavedConditionSort();
                     }
                     System.out.println();
                     return;
 
-                case 2:
+                case "2":
                     c.contractScriptSort();
-                    int choice2 = sc.nextInt();
-                    if(choice2 == 0 || choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4 || choice2 == 5 || choice2 == 6)
+                    String choice2 = sc.nextLine();
+                    if(Objects.equals(choice2, "0") || Objects.equals(choice2, "1") || Objects.equals(choice2, "2") || Objects.equals(choice2, "3") || Objects.equals(choice2, "4") || Objects.equals(choice2, "5") || Objects.equals(choice2, "6"))
                     {
                         dao.lookUp(getConnection2(), choice2);
                         System.out.println("선택하신 기준으로 정렬하여 연락처를 조회하였습니다.");
-                        sort = Sort.values()[choice2];
+                        sort = Sort.values()[Integer.parseInt(choice2)];
                         System.out.print("정렬 기준: ");
                         System.out.println(sort.getChoice());
                         System.out.println();
@@ -125,7 +126,7 @@ public class ContractController
                         {
                             System.out.println("자동 저장이 켜져 있습니다.");
                             System.out.println("설정을 저장하고 이전으로 돌아갑니다.");
-                            settingsService.saveSortCondition(choice2);
+                            settingsService.saveSortCondition(Integer.parseInt(choice2));
                         }
                         else
                         {
@@ -134,12 +135,12 @@ public class ContractController
                             char YN = sc.next().charAt(0);
                             sc.nextLine();
                             if (YN == 'Y' || YN == 'y' || YN == '네' || YN == '예')
-                                settingsService.saveSortCondition(choice2);
+                                settingsService.saveSortCondition(Integer.parseInt(choice2));
                             else
                                 System.out.println("저장하지 않고 이전으로 돌아갑니다.");
                         }
                     }
-                    else if(choice2 == 9)
+                    else if(Objects.equals(choice2, "9"))
                     {
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
@@ -151,7 +152,7 @@ public class ContractController
                     }
                     return;
 
-                case 9:
+                case "9":
                     System.out.println();
                     System.out.println("이전으로 돌아갑니다.");
                     System.out.println();

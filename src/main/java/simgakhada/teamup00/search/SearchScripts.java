@@ -17,6 +17,7 @@ public class SearchScripts
     }
     public void searchScriptsCase2()
     {
+        System.out.println();
         System.out.println("기존의 저장된 값을 사용하지 않고 방법을 직접 선택하여 검색합니다.");
         System.out.println("아래의 선택지는 검색 방법을 의미합니다.");
         System.out.println("1. 이름");

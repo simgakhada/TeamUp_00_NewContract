@@ -312,9 +312,9 @@ public class ContractDAO
         }
     }
 
-    public void lookUp(Connection con, int num)
+    public void lookUp(Connection con, String num)
     {
-        ContractSortSet sortSet = ContractSortSet.values()[num];
+        ContractSortSet sortSet = ContractSortSet.values()[Integer.parseInt(num)];
         Statement stmt;
         String query = sortSet.getQuery();
         ResultSet rs;

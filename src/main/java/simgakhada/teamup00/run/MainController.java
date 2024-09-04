@@ -28,37 +28,37 @@ public class MainController
         while (true)
         {
             m.mainScriptController();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
 
             switch (choice)
             {
-                case 1:
+                case "1":
                     System.out.println();
                     c.run();
                     break;
 
-                case 2:
+                case "2":
                     System.out.println();
                     g.run();
                     break;
 
-                case 3:
+                case "3":
                     System.out.println();
                     s.run();
                     break;
 
-                case 4:
+                case "4":
                     System.out.println();
                     st.run();
                     break;
 
-                case 9:
+                case "9":
                     System.out.println();
                     se.run();
                     break;
 
-                case 0:
+                case "0":
                     System.out.println();
                     System.out.println("프로그램을 종료합니다.");
                     System.exit(0);

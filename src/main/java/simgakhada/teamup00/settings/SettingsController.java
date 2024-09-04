@@ -2,6 +2,7 @@ package simgakhada.teamup00.settings;
 
 import simgakhada.teamup00.run.MainScripts;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -19,24 +20,24 @@ public class SettingsController
         while (true)
         {
             s.settingsScriptController();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
 
             switch (choice)
             {
-                case 1:
+                case "1":
                     dao.printSavedCondition();
                     break;
 
-                case 2:
+                case "2":
                     s.settingsScriptSearch();
-                    int choice2 = sc.nextInt();
-                    sc.nextLine();
-                    if (choice2 == 0 || choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4 || choice2 == 5)
+                    String choice2 = sc.nextLine();
+                    //sc.nextLine();
+                    if (Objects.equals(choice2, "0") || Objects.equals(choice2, "1") || Objects.equals(choice2, "2") || Objects.equals(choice2, "3") || Objects.equals(choice2, "4") || Objects.equals(choice2, "5"))
                     {
-                        dao.saveSearchCondition(choice2);
+                        dao.saveSearchCondition(Integer.parseInt(choice2));
                     }
-                    else if(choice2 == 9)
+                    else if(Objects.equals(choice2, "9"))
                     {
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
@@ -48,15 +49,15 @@ public class SettingsController
                     }
                     break;
 
-                case 3:
+                case "3":
                     s.settingsScriptSort();
-                    int choice3 = sc.nextInt();
-                    sc.nextLine();
-                    if (choice3 == 0 || choice3 == 1 || choice3 == 2 || choice3 == 3 || choice3 == 4 || choice3 == 5 || choice3 == 6 || choice3 == 7 || choice3 == 8)
+                    String choice3 = sc.nextLine();
+                    //sc.nextLine();
+                    if (Objects.equals(choice3, "0") || Objects.equals(choice3, "1") || Objects.equals(choice3, "2") || Objects.equals(choice3, "3") || Objects.equals(choice3, "4") || Objects.equals(choice3, "5") || Objects.equals(choice3, "6") || Objects.equals(choice3, "7") || Objects.equals(choice3, "8"))
                     {
-                        dao.saveSortCondition(choice3);
+                        dao.saveSortCondition(Integer.parseInt(choice3));
                     }
-                    else if(choice3 == 9)
+                    else if(Objects.equals(choice3, "9"))
                     {
                         System.out.println();
                         System.out.println("이전으로 돌아갑니다.");
@@ -68,19 +69,19 @@ public class SettingsController
                     }
                     break;
 
-                case 4:
+                case "4":
                     dao.autoSaveOnOff();
                     break;
 
-                case 5:
+                case "5":
                     dao.lockUnlock();
                     break;
 
-                case 6:
+                case "6":
                     dao.changePassword();
                     break;
 
-                case 9:
+                case "9":
                     System.out.println();
                     System.out.println("설정을 마치고 메인 메뉴로 이동합니다.");
                     System.out.println();

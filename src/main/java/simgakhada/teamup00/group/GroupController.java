@@ -26,31 +26,32 @@ public class GroupController
         while(true)
         {
             g.groupScriptController();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
             switch(choice)
             {
-                case 1:
+                case "1":
                     dao.add(getConnection());
                     break;
 
-                case 2:
+                case "2":
                     dao.delete(getConnection());
                     break;
 
-                case 3:
+                case "3":
                     dao.update(getConnection());
                     break;
 
-                case 4:
+                case "4":
+                    System.out.println();
                     runCase4();
                     break;
 
-                case 5:
+                case "5":
                     dao.print(getConnection2());
                     break;
 
-                case 9:
+                case "9":
                     System.out.println();
                     System.out.println("그룹 관리를 마치고 메인 메뉴로 돌아갑니다.");
                     return;
@@ -78,24 +79,24 @@ public class GroupController
         while (true)
         {
             g.groupScriptCase4();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
 
             switch (choice)
             {
-                case 1:
+                case "1":
                     gs.updateContractInGroup(getConnection2());
                     break;
 
-                case 2:
+                case "2":
                     gs.deleteContractInGroup(getConnection2());
                     break;
 
-                case 3:
+                case "3":
                     dao.lookUp(getConnection2());
                     break;
 
-                case 9:
+                case "9":
                     System.out.println();
                     System.out.println("이전으로 돌아갑니다.");
                     System.out.println();

@@ -16,23 +16,23 @@ public class StatisticsController
         while(true)
         {
             s.statisticsScriptsController();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine();
+            //sc.nextLine();
             switch (choice)
             {
-                case 1:
+                case "1":
                     ss.numberOfContracts(getConnection());
                     break;
 
-                case 2:
+                case "2":
                     ss.numberOfContractsInGroup(getConnection());
                     break;
 
-                case 3:
+                case "3":
                     ss.findTheLatestAddedContract(getConnection());
                     break;
 
-                case 9:
+                case "9":
                     System.out.println("통계 확인을 마치고 메인 메뉴로 돌아갑니다.");
                     System.out.println();
                     return;

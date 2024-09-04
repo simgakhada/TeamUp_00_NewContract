@@ -14,10 +14,21 @@
         WHERE NAME = ? ;
     </entry>
 
+    <entry key="deleteInfoUpgrade">
+        DELETE FROM CONTRACT
+        WHERE NAME = ? AND PHONE = ?
+    </entry>
+
     <entry key="updateInfo">
         UPDATE CONTRACT
         SET NAME = ? , PHONE = ?, EMAIL = ?, ADDRESS = ?, BIRTH = ?
         WHERE NAME = ? ;
+    </entry>
+
+    <entry key="updateInfo">
+        UPDATE CONTRACT
+        SET NAME = ? , PHONE = ?, EMAIL = ?, ADDRESS = ?, BIRTH = ?
+        WHERE NAME = ? AND PHONE = ?
     </entry>
 
     <entry key="insertGroup">
@@ -81,6 +92,13 @@
         EMAIL
         FROM CONTRACT
         WHERE EMAIL LIKE ?
+    </entry>
+
+    <entry key="duplicateCheckName">
+        SELECT
+        NAME
+        FROM CONTRACT
+        WHERE NAME LIKE ?
     </entry>
 
     <entry key="SORT_BASIC">

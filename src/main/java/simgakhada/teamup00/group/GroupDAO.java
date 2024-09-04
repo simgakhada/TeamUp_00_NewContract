@@ -124,7 +124,7 @@ public class GroupDAO
             ps.setString(2, groupOld);
             ps.setString(1, groupNew);
             int result = ps.executeUpdate();
-            if (result == 1)
+            if (result != 0)
             {
                 System.out.println(groupOld + "을 " + groupNew + "로 변경하였습니다.");
                 System.out.println();

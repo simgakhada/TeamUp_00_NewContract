@@ -34,6 +34,7 @@ import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
 
 public class ContractValidation
 {
+    boolean result = false;
     /**
      * "vCheckPN"
      * 입력 받은 전화번호에 대한 유효성을 검사하는 메소드입니다.
@@ -45,7 +46,6 @@ public class ContractValidation
      */
     public boolean vCheckPN(String PhoneNum)
     {
-        boolean result = false;
         if (PhoneNum.matches("^(01[0-9]-?[2-9][0-9]{3}-?[0-9]{4}|01[0-9][2-9][0-9]{7})$"))
         {
             result = true;
@@ -82,7 +82,7 @@ public class ContractValidation
         Connection con = getConnection();
         PreparedStatement ps;
         ResultSet rs;
-        boolean result = true;
+        result = true;
         Properties prop = new Properties();
 
         try {
@@ -110,7 +110,7 @@ public class ContractValidation
      */
     public boolean vCheckEmail(String email)
     {
-        boolean result = true;
+        result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
@@ -132,7 +132,7 @@ public class ContractValidation
         Connection con = getConnection();
         PreparedStatement ps;
         ResultSet rs;
-        boolean result = true;
+        result = true;
         Properties prop = new Properties();
 
         try {
@@ -161,7 +161,6 @@ public class ContractValidation
      */
     public boolean vCheckBirth(String birth)
     {
-        boolean result = false;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         try {
             Date ret = dateFormat.parse(birth.trim());
@@ -170,6 +169,30 @@ public class ContractValidation
         } catch (ParseException e) {
             result = false;
             //throw new RuntimeException(e);
+        }
+        return result;
+    }
+    
+    public boolean dCheckName(String name)
+    {
+        Connection con = getConnection();
+        PreparedStatement ps;
+        ResultSet rs;
+        Properties prop = new Properties();
+        result = true;
+
+        try {
+            prop.loadFromXML(new FileInputStream("src/main/resources/mapper/menu-query.xml"));
+            ps = con.prepareStatement(prop.getProperty("duplicateCheckName"));
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+
+            while(rs.next())
+                result = false;
+
+        } catch (IOException | SQLException e) {
+            result = false;
+            // throw new RuntimeException(e);
         }
         return result;
     }

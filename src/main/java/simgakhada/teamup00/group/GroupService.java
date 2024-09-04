@@ -56,8 +56,6 @@ public class GroupService
         PreparedStatement ps;
         Properties prop = new Properties();
         int result = 0;
-        String query = prop.getProperty("deleteContractInGroup");
-
         System.out.println("[그룹 내 연락처 삭제] 연락처를 그룹에서 제외할 수 있습니다.");
         System.out.print("그룹 이름을 입력해주세요.: ");
         String groupName = sc.nextLine();
@@ -66,12 +64,12 @@ public class GroupService
 
         try {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/menu-query.xml"));
-            ps = con.prepareStatement(prop.getProperty(query));
-            ps.setString(1, groupName);
-            ps.setString(2, name);
+            String query = prop.getProperty("deleteContractInGroup");
+            ps = con.prepareStatement(query);
+            ps.setString(1, name);
             result = ps.executeUpdate();
 
-            if(result == 1)
+            if(result != 0)
             {
                 System.out.println("그룹 " + groupName + "에서 " + name + "의 연락처가 성공적으로 제외되었습니다.");
             }

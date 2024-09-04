@@ -176,29 +176,31 @@ public class ContractDAO
         String oldBirth = "";
         int result = 0;
 
-        System.out.print("변경을 원하는 연락처의 이름을 입력해 주세요.: ");
-        String name = sc.nextLine();
-        boolean dCheckName = validation.dCheckName(name);
-        if(!dCheckName)
-        {
-            System.out.println("중복된 이름이 존재하여 전화번호를 요구합니다.");
-            System.out.print(name + "의 전화번호를 입력해주세요.: ");
-            phone = sc.nextLine();
-        }
-        System.out.println("연락처 정보 수정을 시작합니다.");
-        System.out.println("변경하지 않고자 하는 정보가 있을 경우 '건너뛰기'을 입력하면 해당 내용은 변경되지 않습니다.");
-        System.out.print("새로운 이름을 입력해 주세요.: ");
-        String newName = sc.nextLine();
-        System.out.print("새로운 전화번호를 입력해주세요. (입력 예시: 01012345678): ");
-        String newPhone = sc.nextLine();
-        System.out.print("새로운 이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
-        String email = sc.nextLine();
-        System.out.print("새로운 주소를 입력해주세요.: ");
-        String address = sc.nextLine();
-        System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
-        String birth = sc.nextLine();
+
 
         try {
+            System.out.print("변경을 원하는 연락처의 이름을 입력해 주세요.: ");
+            String name = sc.nextLine();
+            boolean dCheckName = validation.dCheckName(name);
+            if(!dCheckName)
+            {
+                System.out.println("중복된 이름이 존재하여 전화번호를 요구합니다.");
+                System.out.print(name + "의 전화번호를 입력해주세요.: ");
+                phone = sc.nextLine();
+            }
+            System.out.println("연락처 정보 수정을 시작합니다.");
+            System.out.println("변경하지 않고자 하는 정보가 있을 경우 '건너뛰기'을 입력하면 해당 내용은 변경되지 않습니다.");
+            System.out.print("새로운 이름을 입력해 주세요.: ");
+            String newName = sc.nextLine();
+            System.out.print("새로운 전화번호를 입력해주세요. (입력 예시: 01012345678): ");
+            String newPhone = sc.nextLine();
+            System.out.print("새로운 이메일을 입력해주세요. (입력 예시: exampleid@domain.com): ");
+            String email = sc.nextLine();
+            System.out.print("새로운 주소를 입력해주세요.: ");
+            String address = sc.nextLine();
+            System.out.print("새로운 생년월일를 입력해주세요. (입력 예시: 20010101): ");
+            String birth = sc.nextLine();
+
             ps2 = con.prepareStatement(query2);
             ps2.setString(1, name);
             rs = ps2.executeQuery();
@@ -254,17 +256,8 @@ public class ContractDAO
             ps = con.prepareStatement(query);
             ps3 = con.prepareStatement(query3);
             if(vCheckPN && dCheckPN && vCheckEmail && dCheckEmail && vCheckBirth)
-                if(dCheckName)
-                {
-                    ps.setString(6,name);
-                    ps.setString(1,newName);
-                    ps.setString(2,newPhone);
-                    ps.setString(3,email);
-                    ps.setString(4,address);
-                    ps.setString(5,birth);
-                    result = ps.executeUpdate();
-                }
-                else
+            {
+                if (!dCheckName)
                 {
                     ps3.setString(6, name);
                     ps3.setString(7, phone);
@@ -275,6 +268,17 @@ public class ContractDAO
                     ps3.setString(5, birth);
                     result = ps3.executeUpdate();
                 }
+                else
+                {
+                    ps.setString(6, name);
+                    ps.setString(1, newName);
+                    ps.setString(2, newPhone);
+                    ps.setString(3, email);
+                    ps.setString(4, address);
+                    ps.setString(5, birth);
+                    result = ps.executeUpdate();
+                }
+            }
             else
             {
                 System.out.println("유효성 검사에 실패하였습니다.");

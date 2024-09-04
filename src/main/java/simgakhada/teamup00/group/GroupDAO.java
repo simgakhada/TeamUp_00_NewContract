@@ -59,7 +59,9 @@ public class GroupDAO
 
         try {
             ps = con.prepareStatement(query);
+            System.out.println();
             System.out.println("[그룹 추가] 그룹을 추가합니다.");
+            System.out.println("그룹 이름은 중복을 허용하지 않습니다.");
             System.out.print("추가하실 그룹명을 입력해주세요.: ");
             String groupInsert = sc.nextLine();
             System.out.println();
@@ -67,10 +69,12 @@ public class GroupDAO
             ps.setString(1, groupInsert);
             result = ps.executeUpdate();
 
-            if (result == 1) {
+            if (result != 0) {
                 System.out.println("입력하신 그룹이 성공적으로 추가되었습니다.");
                 System.out.println();
             }
+            else
+                System.out.println("그룹 이름이 중복되어 추가에 실패하였습니다.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

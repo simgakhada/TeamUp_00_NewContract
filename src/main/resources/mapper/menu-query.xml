@@ -43,6 +43,12 @@
         WHERE GROUP_NAME = ? ;
     </entry>
 
+    <entry key="deleteGroupForced">
+        UPDATE CONTRACT
+        SET GROUP_NO = null
+        WHERE GROUP_NO = (SELECT GROUP_NO FROM CONTRACT_GROUP WHERE GROUP_NAME = ?);
+    </entry>
+
     <entry key="updateGroup">
         UPDATE CONTRACT_GROUP
         SET GROUP_NAME = ?

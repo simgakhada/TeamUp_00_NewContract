@@ -14,7 +14,7 @@ import java.util.Properties;
  * 연락처의 개수, 그룹 별 연락처 개수, 마지막에 추가된 연락처 등을 출력합니다.
  */
 public class StatisticsService {
-    public boolean numberOfContracts(Connection con)
+    public void numberOfContracts(Connection con)
     {
         Properties prop = new Properties();
         Statement stmt;
@@ -28,7 +28,6 @@ public class StatisticsService {
                 if(rs.getString(1).equals("0"))
                 {
                     System.out.println("연락처가 비어있습니다.");
-                    return true;
                 }
                 else
                 {
@@ -38,7 +37,6 @@ public class StatisticsService {
             throw new RuntimeException(e);
         }
         System.out.println();
-        return false;
     }
 
     public void numberOfContractsInGroup(Connection con)

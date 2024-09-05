@@ -89,7 +89,8 @@ public class GroupService
             ps2.setString(1, groupName);
             rs = ps2.executeQuery();
             do{
-                flag = true;
+                if(rs.next())
+                    flag = true;
             } while(rs.next());
 
 

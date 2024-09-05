@@ -282,7 +282,6 @@ public class SettingsService
                     System.out.println("9. 뒤로가기");
                     System.out.print("번호 입력: ");
                     String choice = sc.nextLine();
-                    sc.nextLine();
                     if(Objects.equals(choice, "1"))
                     {
                         System.out.println("새로운 비밀번호를 입력해주세요.");

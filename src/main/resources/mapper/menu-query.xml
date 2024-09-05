@@ -109,9 +109,12 @@
 
     <entry key="duplicateCheckName">
         SELECT
-        NAME
+        NAME,
+        COUNT(NAME)
         FROM CONTRACT
         WHERE NAME LIKE ?
+        GROUP BY NAME
+        HAVING COUNT(NAME) > 1
     </entry>
 
     <entry key="SORT_BASIC">

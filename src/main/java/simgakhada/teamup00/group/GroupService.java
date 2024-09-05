@@ -88,8 +88,10 @@ public class GroupService
             ps2 = con.prepareStatement(query2);
             ps2.setString(1, groupName);
             rs = ps2.executeQuery();
-            while(rs.next())
+            do{
                 flag = true;
+            } while(rs.next());
+
 
             if(flag)
             {

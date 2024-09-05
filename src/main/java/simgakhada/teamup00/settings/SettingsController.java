@@ -5,6 +5,8 @@ import simgakhada.teamup00.run.MainScripts;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
+
 /**
  * SettingsController
  * 설정을 관리하는 메뉴를 출력하는 클래스입니다.
@@ -14,7 +16,7 @@ public class SettingsController
     public void run()
     {
         Scanner sc = new Scanner(System.in);
-        SettingsService dao = new SettingsService();
+        SettingsService service = new SettingsService();
         SettingsScripts s = new SettingsScripts();
         MainScripts m = new MainScripts();
         while (true)
@@ -26,7 +28,7 @@ public class SettingsController
             switch (choice)
             {
                 case "1":
-                    dao.printSavedCondition();
+                    service.printSavedCondition();
                     break;
 
                 case "2":
@@ -35,7 +37,7 @@ public class SettingsController
                     //sc.nextLine();
                     if (Objects.equals(choice2, "0") || Objects.equals(choice2, "1") || Objects.equals(choice2, "2") || Objects.equals(choice2, "3") || Objects.equals(choice2, "4") || Objects.equals(choice2, "5"))
                     {
-                        dao.saveSearchCondition(Integer.parseInt(choice2));
+                        service.saveSearchCondition(Integer.parseInt(choice2));
                     }
                     else if(Objects.equals(choice2, "9"))
                     {
@@ -55,7 +57,7 @@ public class SettingsController
                     //sc.nextLine();
                     if (Objects.equals(choice3, "0") || Objects.equals(choice3, "1") || Objects.equals(choice3, "2") || Objects.equals(choice3, "3") || Objects.equals(choice3, "4") || Objects.equals(choice3, "5") || Objects.equals(choice3, "6") || Objects.equals(choice3, "7") || Objects.equals(choice3, "8"))
                     {
-                        dao.saveSortCondition(Integer.parseInt(choice3));
+                        service.saveSortCondition(Integer.parseInt(choice3));
                     }
                     else if(Objects.equals(choice3, "9"))
                     {
@@ -70,17 +72,20 @@ public class SettingsController
                     break;
 
                 case "4":
-                    dao.autoSaveOnOff();
+                    service.autoSaveOnOff();
                     break;
 
                 case "5":
-                    dao.lockUnlock();
+                    service.lockUnlock();
                     break;
 
                 case "6":
-                    dao.changePassword();
+                    service.changePassword();
                     break;
 
+                case "R":
+                    service.reset();
+                    break;
                 case "9":
                     System.out.println();
                     System.out.println("설정을 마치고 메인 메뉴로 이동합니다.");

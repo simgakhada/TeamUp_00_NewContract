@@ -174,14 +174,17 @@ public class GroupDAO
             ps.setString(1, groupLook);
             rs = ps.executeQuery();
             System.out.println("[" + groupLook + "에 속한 연락처]");
-            while (rs.next())
-            {
-                System.out.println("이름: " + rs.getString("NAME")
-                        + " 전화번호: " + rs.getString("PHONE")
-                        + " 이메일: " + rs.getString("EMAIL")
-                        + " 주소: " + rs.getString("ADDRESS")
-                        + " 생년월일: " + rs.getString("BIRTH"));
-            }
+            if(rs.next())
+                do {
+                    System.out.println("이름: " + rs.getString("NAME")
+                            + " 전화번호: " + rs.getString("PHONE")
+                            + " 이메일: " + rs.getString("EMAIL")
+                            + " 주소: " + rs.getString("ADDRESS")
+                            + " 생년월일: " + rs.getString("BIRTH"));
+                } while (rs.next());
+            else
+                System.out.println("그룹이 비어있습니다.");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

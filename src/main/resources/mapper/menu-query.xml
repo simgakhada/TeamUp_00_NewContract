@@ -266,4 +266,8 @@
         FROM CONTRACT
         )
     </entry>
+
+    <entry key="reset">
+
+    </entry>
 </properties>

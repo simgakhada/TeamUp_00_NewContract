@@ -1,13 +1,20 @@
 package simgakhada.teamup00.settings;
 
+import simgakhada.teamup00.etc.ScriptColors;
 import simgakhada.teamup00.run.MainScripts;
 import simgakhada.teamup00.settings.settingsenum.Search;
 import simgakhada.teamup00.settings.settingsenum.Sort;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Scanner;
+
+import static simgakhada.teamup00.template.JDBCTemplate.getConnection;
 
 /**
  * "설정"
@@ -22,6 +29,8 @@ import java.util.Scanner;
  */
 public class SettingsService
 {
+    MainScripts m = new MainScripts();
+    SettingsScripts s = new SettingsScripts();
     File path = new File("src/main/resources/config/settings.properties");
     Properties prop = new Properties();
     FileInputStream fis;
@@ -235,7 +244,6 @@ public class SettingsService
                     System.out.println("잠금을 설정하시겠습니까?");
                     System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
                     String YN = sc.nextLine();
-                    sc.nextLine();
                     if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
                     {
                         System.out.println("잠금이 설정되었습니다.");
@@ -258,7 +266,6 @@ public class SettingsService
     public void changePassword()
     {
         Scanner sc = new Scanner(System.in);
-        MainScripts m = new MainScripts();
         try {
             fis = new FileInputStream(path);
             prop.load(fis);
@@ -275,9 +282,9 @@ public class SettingsService
                     System.out.println("2. 비밀번호를 삭제합니다.");
                     System.out.println("9. 뒤로가기");
                     System.out.print("번호 입력: ");
-                    int choice = sc.nextInt();
+                    String choice = sc.nextLine();
                     sc.nextLine();
-                    if(choice == 1)
+                    if(Objects.equals(choice, "1"))
                     {
                         System.out.println("새로운 비밀번호를 입력해주세요.");
                         System.out.print("비밀번호: ");
@@ -303,12 +310,11 @@ public class SettingsService
                         }
                         System.out.println();
                     }
-                    else if(choice == 2)
+                    else if(Objects.equals(choice, "2"))
                     {
                         System.out.println("정말 비밀번호를 삭제하시겠습니까?");
                         System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
                         String YN = sc.nextLine();
-                        sc.nextLine();
                         if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
                         {
                             System.out.println("비밀번호가 삭제되었습니다.");
@@ -321,7 +327,7 @@ public class SettingsService
                         else
                             System.out.println("이전으로 돌아갑니다.");
                     }
-                    else if(choice == 9)
+                    else if(Objects.equals(choice, "9"))
                     {
                         System.out.println("이전으로 돌아갑니다.");
                     }
@@ -359,6 +365,93 @@ public class SettingsService
                 }
                 System.out.println();
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void reset()
+    {
+        Scanner sc = new Scanner(System.in);
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            System.out.println();
+            System.out.println("비밀번호를 입력해주세요.");
+            System.out.print("비밀번호: ");
+            String password = sc.nextLine();
+            if(password.equals(prop.getProperty("password")))
+            {
+                s.settingsScriptReset();
+                String YN = sc.nextLine();
+                if (Objects.equals(YN, "Y") || Objects.equals(YN, "y") || Objects.equals(YN, "네") || Objects.equals(YN, "예"))
+                {
+                    System.out.print(ScriptColors.YELLOW_BOLD_BRIGHT);
+                    System.out.println("아래의 문구를 똑같이 입력하시면 초기화 및 복구 불가에 동의하신 것으로 간주하고 초기화를 진행합니다.");
+                    System.out.println(ScriptColors.RED_BOLD_BRIGHT);
+                    System.out.println("유의사항을 확인했습니다.");
+                    System.out.println(ScriptColors.RESET);
+                    String Confirm = sc.nextLine();
+
+                    if(Objects.equals(Confirm, "유의사항을 확인했습니다."))
+                    {
+                        try {
+                            resetDB(getConnection());
+                            resetSetting();
+                            s.settingsScriptResetConfirm();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        System.exit(0);
+                    }
+                }
+                else
+                {
+                    System.out.println("이전으로 돌아갑니다.");
+                }
+            }
+            else
+            {
+                m.defaultMessage();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void resetDB(Connection con)
+    {
+        try {
+            PreparedStatement ps1 = con.prepareStatement("DELETE FROM CONTRACT");
+            PreparedStatement ps2 = con.prepareStatement("DELETE FROM CONTRACT_GROUP");
+            PreparedStatement ps3 = con.prepareStatement("SET foreign_key_checks = 0");
+            PreparedStatement ps4 = con.prepareStatement("SET foreign_key_checks = 1");
+
+            ps3.executeUpdate();
+            ps1.executeUpdate();
+            ps2.executeUpdate();
+            ps4.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void resetSetting()
+    {
+        try {
+            fis = new FileInputStream(path);
+            prop.load(fis);
+            fis.close();
+            fos = new FileOutputStream(path);
+            prop.setProperty("search", String.valueOf(0));
+            prop.setProperty("sort", String.valueOf(0));
+            prop.setProperty("autoSave", "false");
+            prop.setProperty("locked", "false");
+            prop.setProperty("password", "");
+            prop.store(fos, "Last Changes: RESET");
+            fos.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

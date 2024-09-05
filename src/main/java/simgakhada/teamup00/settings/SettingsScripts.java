@@ -1,9 +1,12 @@
 package simgakhada.teamup00.settings;
 
+import simgakhada.teamup00.etc.ScriptColors;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SettingsScripts
@@ -50,6 +53,9 @@ public class SettingsScripts
             else
             {
                 System.out.println("6. 비밀번호 변경 / 삭제");
+                System.out.println(ScriptColors.RED_BOLD_BRIGHT);
+                System.out.println("R. 전화번호부 초기화");
+                System.out.println(ScriptColors.RESET);
             }
             System.out.println("9. 설정 종료 및 메인 메뉴로 이동");
             System.out.print("번호 입력: ");
@@ -87,5 +93,38 @@ public class SettingsScripts
         System.out.println("7. 그룹 이름 (오름차순) \t 8. 그룹 이름 (내림차순)");
         System.out.println("9. 뒤로가기");
         System.out.print("번호 입력: ");
+    }
+
+    public void settingsScriptReset()
+    {
+        System.out.println("전화번호부의 모든 데이터를 초기화합니다.");
+        System.out.println("초기화 후 데이터는 복구할 수 없으므로 신중한 선택이 필요합니다.");
+        System.out.println("정말 초기화하시겠습니까?");
+        System.out.print("답변 입력 ('Y', 'y', '네', '예' 이외의 대답은 모두 '아니오'로 처리합니다.): ");
+    }
+
+    public void settingsScriptResetConfirm() throws InterruptedException
+    {
+        printWithDelays("초기화를 시작합니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("그룹을 모두 삭제합니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("그룹을 모두 삭제하였습니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("연락처를 모두 삭제합니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("연락처를 모두 삭제하였습니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("저장된 설정을 모두 삭제합니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("설정을 모두 삭제하였습니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("비밀번호를 삭제합니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("비밀번호를 삭제하였습니다.\n", TimeUnit.MILLISECONDS, 100);
+        printWithDelays("초기화를 완료했습니다.\n", TimeUnit.MILLISECONDS, 100);
+        System.out.println("프로그램을 종료합니다.");
+    }
+
+    public static void printWithDelays(String data, TimeUnit unit, long delay)
+            throws InterruptedException
+    {
+        for (char ch : data.toCharArray())
+        {
+            System.out.print(ch);
+            unit.sleep(delay);
+        }
     }
 }
